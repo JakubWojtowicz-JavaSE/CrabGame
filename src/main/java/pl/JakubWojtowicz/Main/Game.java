@@ -1,11 +1,10 @@
 package pl.JakubWojtowicz.Main;
 
 import pl.JakubWojtowicz.Entity.Player;
-import pl.JakubWojtowicz.Utilz.LoadSave;
+import pl.JakubWojtowicz.ui.UI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Game extends JPanel implements Runnable {
@@ -16,9 +15,6 @@ public class Game extends JPanel implements Runnable {
     public static final int TILE_SIZE = (int) (DEFAULT_TILE_SIZE * SCALE);
     public static final int WINDOW_WIDTH = 10 * TILE_SIZE;
     public static final int WINDOW_HEIGHT = 12 * TILE_SIZE;
-
-    // Imgs
-    private BufferedImage backgroundImg;
 
     // System
     private int FPS = 60;
@@ -37,9 +33,8 @@ public class Game extends JPanel implements Runnable {
 
     public Game() {
         initClasses();
-        initImgs();
 
-        gameState = GameStates.playing;
+        gameState = GameStates.menu;
 
         setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         setBackground(Color.BLACK);
@@ -61,10 +56,6 @@ public class Game extends JPanel implements Runnable {
     public void reset() {
         eSpawner.setDefVar();
         player.reset();
-    }
-
-    private void initImgs() {
-        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.BASKGROUND_IMG);
     }
 
     public void startGameThread() {
@@ -123,9 +114,6 @@ public class Game extends JPanel implements Runnable {
 
     public void paintComponent(Graphics g) {
         if (gameState == GameStates.playing) {
-            // draw bg
-            g.drawImage(backgroundImg, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, null);
-            // draw entities
             player.draw(g);
 
             eSpawner.draw(g);

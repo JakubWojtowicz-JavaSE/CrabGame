@@ -71,4 +71,12 @@ public class Constants {
 
         public static final int SPRITES_IN_COL = 7;
     }
+
+    public static class ButtonsDetails {
+        public static final int BUTTON_DEFAULT_WIDTH = 140;
+        public static final int BUTTON_DEFAULT_HEIGHT = 56;
+
+        public static final int BUTTON_WIDTH = (int) (BUTTON_DEFAULT_WIDTH/1.2f*Game.SCALE);//116.66
+        public static final int BUTTON_HEIGHT = (int) (BUTTON_DEFAULT_HEIGHT/1.2f*Game.SCALE);//46.66
+    }
 }
