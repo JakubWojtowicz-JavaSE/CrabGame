@@ -40,6 +40,7 @@ public class Game extends JPanel implements Runnable {
         setBackground(Color.BLACK);
         addKeyListener(listeners);
         addMouseListener(listeners);
+        addMouseMotionListener(listeners);
     }
 
     private void initClasses() {
@@ -110,15 +111,17 @@ public class Game extends JPanel implements Runnable {
             player.update();
             eSpawner.update();
         }
+        ui.update();
     }
 
     public void paintComponent(Graphics g) {
-        if (gameState == GameStates.playing) {
-            player.draw(g);
 
-            eSpawner.draw(g);
-        }
         ui.draw(g);
+//        if (gameState == GameStates.playing) {
+//            player.draw(g);  in ui
+//
+//            eSpawner.draw(g);
+//        }
 
         g.dispose();
     }

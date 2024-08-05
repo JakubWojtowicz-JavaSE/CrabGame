@@ -6,6 +6,7 @@ import pl.JakubWojtowicz.Utilz.Constants;
 import pl.JakubWojtowicz.Utilz.LoadSave;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -33,6 +34,7 @@ public class UI {
         try {
             InputStream is = getClass().getResourceAsStream("/Font.ttf");
             font = Font.createFont(Font.TRUETYPE_FONT, is);
+            is.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (FontFormatException e) {
@@ -54,12 +56,32 @@ public class UI {
         buttons[2] = new QuitButton(game, menuX + (int) (36f*Game.SCALE), menuY + 2*Constants.ButtonsDetails.BUTTON_HEIGHT + (int) (95*Game.SCALE));
     }
 
+    public void update() {
+        if (game.gameState == GameStates.menu) {
+            for (UrmButton button : buttons) {
+                button.setActiv(true);
+                button.update();
+            }
+        }
+    }
+
+    public void resetButtons() {
+        for (UrmButton button : buttons) {
+            button.setActiv(false);
+            button.isPressed = false;
+            button.isMouseOver = false;
+        }
+    }
+
     public void draw(Graphics g) {
         g.setFont(font.deriveFont(17*Game.SCALE));
         if (game.gameState == GameStates.menu) {
             drawBg(g);
             drawMenu(g);
         } else if (game.gameState == GameStates.playing) {
+            drawBg(g);
+            game.player.draw(g);
+            game.eSpawner.draw(g);
             drawHealthBar(g);
             drawScore(g);
         } else if (game.gameState == GameStates.pause) {
@@ -110,5 +132,27 @@ public class UI {
         g.setColor(Color.WHITE);
         g.setFont(font.deriveFont(25*Game.SCALE));
         g.drawString("SCORE: " + game.player.score, Game.WINDOW_WIDTH/2-(int) (40*Game.SCALE), (int) (84*Game.SCALE));
+    }
+
+
+
+
+
+    public void mousePressed(MouseEvent e) {
+        for (UrmButton button : buttons) {
+            button.mousePressed(e);
+        }
+    }
+
+    public void mouseRelased(MouseEvent e) {
+        for (UrmButton button : buttons) {
+            button.mouseRelased(e);
+        }
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        for (UrmButton button : buttons) {
+            button.mouseMoved(e);
+        }
     }
 }

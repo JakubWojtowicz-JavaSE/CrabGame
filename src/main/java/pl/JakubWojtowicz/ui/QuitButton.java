@@ -7,4 +7,8 @@ public class QuitButton extends UrmButton {
     public QuitButton(Game game, int xPos, int yPos) {
         super(game, xPos, yPos, 2);
     }
+
+    protected void buttonFun() {
+        System.exit(0);
+    }
 }
