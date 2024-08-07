@@ -2,6 +2,7 @@ package Entity;
 
 import Main.Game;
 import Main.GameStates;
+import Utilz.Data;
 import Utilz.LoadSave;
 
 import java.awt.*;
@@ -96,6 +97,10 @@ public class Player extends Entity {
         state = HIT;
         health -= damage;
         if (health <= 0) {
+            if (score > game.data.bestScore) {
+                game.data.bestScore = score;
+                LoadSave.SaveData(game.data);
+            }
             game.gameState = GameStates.deathScreen;
         }
     }

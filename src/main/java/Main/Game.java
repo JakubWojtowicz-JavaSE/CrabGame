@@ -1,6 +1,8 @@
 package Main;
 
 import Entity.Player;
+import Utilz.Data;
+import Utilz.LoadSave;
 import ui.UI;
 
 import javax.swing.*;
@@ -21,6 +23,7 @@ public class Game extends JPanel implements Runnable {
     private int UPS = 100;
     private Thread thread;
     public Random random;
+    public Data data;
     public EntitySpawner eSpawner;
     public CollisionChecker collisionCh;
     public Listeners listeners;
@@ -50,6 +53,8 @@ public class Game extends JPanel implements Runnable {
         ui = new UI(this);
 
         random = new Random();
+        data = LoadSave.LoadData();
+        System.out.println(data.bestScore);
 
         player = new Player(this, WINDOW_WIDTH/2-TILE_SIZE/2);
     }

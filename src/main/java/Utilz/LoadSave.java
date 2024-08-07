@@ -2,7 +2,7 @@ package Utilz;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.io.*;
 
 public class LoadSave {
 
@@ -15,6 +15,8 @@ public class LoadSave {
     public static final String BALL_SPRITE = "ball.png";
     public static final String POTION_SPRITE = "potions_sprites.png";
 
+    public static final String path = "data.crb";
+
     public static BufferedImage GetSpriteAtlas(String path) {
         BufferedImage img = null;
         try {
@@ -23,5 +25,30 @@ public class LoadSave {
             throw new RuntimeException(e);
         }
         return img;
+    }
+
+    public static void SaveData(Data data) {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
+
+            oos.writeObject(data);
+
+            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static Data LoadData() {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
+
+            return  (Data) ois.readObject();
+        } catch (IOException e) {
+            return new Data();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
