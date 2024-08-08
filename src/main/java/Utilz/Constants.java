@@ -72,12 +72,20 @@ public class Constants {
         public static final int SPRITES_IN_COL = 7;
     }
 
-    public static class ButtonsDetails {
+    public static class MenuButtonsDetails {
         public static final int BUTTON_DEFAULT_WIDTH = 140;
         public static final int BUTTON_DEFAULT_HEIGHT = 56;
 
         public static final int BUTTON_WIDTH = (int) (BUTTON_DEFAULT_WIDTH/1.2f*Game.SCALE);//116.66
         public static final int BUTTON_HEIGHT = (int) (BUTTON_DEFAULT_HEIGHT/1.2f*Game.SCALE);//46.66
+    }
+
+    public static class OptionsButtonsDetails {
+        public static final int BUTTON_DEFAULT_WIDTH = 56;
+        public static final int BUTTON_DEFAULT_HEIGHT = 56;
+
+        public static final int BUTTON_WIDTH = (int) (BUTTON_DEFAULT_WIDTH/1.2f*Game.SCALE);
+        public static final int BUTTON_HEIGHT = (int) (BUTTON_DEFAULT_HEIGHT/1.2f*Game.SCALE);
     }
 
     public static class VolumeSliderDetails {
@@ -99,9 +107,9 @@ public class Constants {
         public static final int DEATH_S_WIDTH = (int) (DEATH_S_DEFAULT_WIDTH/1.2f*Game.SCALE);
         public static final int DEATH_S_HEIGHT = (int) (DEATH_S_DEFAULT_HEIGHT/1.2f*Game.SCALE);
 
-        public static final int DEATH_S_RETRY_B_WIDTH = (int) (75/1.2f*Game.SCALE);
-        public static final int DEATH_S_RETRY_B_HEIGHT = (int) (40f/1.2f*Game.SCALE);
-        public static final int DEATH_S_RAGE_Q_B_WIDTH = (int) (59f/1.2f*Game.SCALE);
-        public static final int DEATH_S_RAGE_Q_B_HEIGHT = (int) (40f/1.2f*Game.SCALE);
+//        public static final int DEATH_S_RETRY_B_WIDTH = (int) (75/1.2f*Game.SCALE);
+//        public static final int DEATH_S_RETRY_B_HEIGHT = (int) (40f/1.2f*Game.SCALE);
+//        public static final int DEATH_S_RAGE_Q_B_WIDTH = (int) (59f/1.2f*Game.SCALE);
+//        public static final int DEATH_S_RAGE_Q_B_HEIGHT = (int) (40f/1.2f*Game.SCALE);
     }
 }

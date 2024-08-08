@@ -61,13 +61,13 @@ public class UI {
     private void createButtons() {
         buttons = new UrmButton[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+BUTTONS_IN_DEATH_S];
         buttons[0] = new PlayButton(game, menuX + (int) (36f*Game.SCALE), menuY + (int) (75*Game.SCALE));
-        buttons[1] = new OptionsButton(game, menuX + (int) (36f*Game.SCALE), menuY + Constants.ButtonsDetails.BUTTON_HEIGHT + (int) (85*Game.SCALE));
-        buttons[2] = new QuitButton(game, menuX + (int) (36f*Game.SCALE), menuY + 2*Constants.ButtonsDetails.BUTTON_HEIGHT + (int) (95*Game.SCALE));
+        buttons[1] = new OptionsButton(game, menuX + (int) (36f*Game.SCALE), menuY + Constants.MenuButtonsDetails.BUTTON_HEIGHT + (int) (85*Game.SCALE));
+        buttons[2] = new QuitButton(game, menuX + (int) (36f*Game.SCALE), menuY + 2* Constants.MenuButtonsDetails.BUTTON_HEIGHT + (int) (95*Game.SCALE));
 
         buttons[3] = new VolumeSlider(game, menuX + (int) (23f*Game.SCALE), (int) (228f*Game.SCALE));
 
-        buttons[4] = new RageQuitButton(game,  deathSX + (int) (26.66f * Game.SCALE), deathSY + (int) (151f*Game.SCALE), 0);
-        buttons[5] = new RetryButton(game,  deathSX + (int) (107f * Game.SCALE), deathSY + (int) (151f*Game.SCALE), 0);
+        buttons[4] = new RageQuitButton(game,  deathSX + (int) (26.66f * Game.SCALE), deathSY + (int) (151f*Game.SCALE));
+        buttons[5] = new RetryButton(game,  deathSX + (int) (107f * Game.SCALE), deathSY + (int) (151f*Game.SCALE));
     }
 
     public void update() {
@@ -78,6 +78,10 @@ public class UI {
         } else if (game.gameState == GameStates.options) {
             for (int i = 0; i < BUTTONS_IN_OPTIONS; i++) {
                 buttons[BUTTONS_IN_MENU+i].update();
+            }
+        } else if (game.gameState == GameStates.deathScreen) {
+            for (int i = 0; i < BUTTONS_IN_DEATH_S; i++) {
+                buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].update();
             }
         }
     }
@@ -174,6 +178,10 @@ public class UI {
         g.drawImage(deathScreenImg, deathSX, deathSY, Constants.DeathScreenDetails.DEATH_S_WIDTH, Constants.DeathScreenDetails.DEATH_S_HEIGHT, null);
         drawStr("SCORE: " + game.player.score, deathSX+(int) (55*Game.SCALE), deathSY+(int) (105*Game.SCALE));
         drawStr("BEST SCORE: " + game.player.bestScore, deathSX+(int) (24*Game.SCALE), deathSY+(int) (135*Game.SCALE));
+
+        for (int i = 0; i < BUTTONS_IN_DEATH_S; i++) {
+            buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].draw(g);
+        }
     }
 
     // to buttons

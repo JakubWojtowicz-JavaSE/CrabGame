@@ -3,7 +3,7 @@ package ui;
 import Main.Game;
 import Main.GameStates;
 
-import static Utilz.Constants.ButtonsDetails.*;
+import static Utilz.Constants.MenuButtonsDetails.*;
 
     public class PlayButton extends UrmButton {
 

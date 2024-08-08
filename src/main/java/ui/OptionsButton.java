@@ -3,8 +3,8 @@ package ui;
 import Main.Game;
 import Main.GameStates;
 
-import static Utilz.Constants.ButtonsDetails.BUTTON_HEIGHT;
-import static Utilz.Constants.ButtonsDetails.BUTTON_WIDTH;
+import static Utilz.Constants.MenuButtonsDetails.BUTTON_HEIGHT;
+import static Utilz.Constants.MenuButtonsDetails.BUTTON_WIDTH;
 
 public class OptionsButton extends UrmButton {
 

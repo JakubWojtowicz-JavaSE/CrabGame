@@ -2,16 +2,16 @@ package ui;
 
 import Main.Game;
 import Main.GameStates;
-import Utilz.Constants;
+import Utilz.LoadSave;
 
-import java.awt.*;
+import java.awt.image.BufferedImage;
 
-import static Utilz.Constants.DeathScreenDetails.*;
+import static Utilz.Constants.OptionsButtonsDetails.*;
 
 public class RageQuitButton extends UrmButton {
 
-    public RageQuitButton(Game game, int xPos, int yPos, int rowIndex) {
-        super(game, xPos, yPos, DEATH_S_RAGE_Q_B_WIDTH, DEATH_S_RAGE_Q_B_HEIGHT, rowIndex);
+    public RageQuitButton(Game game, int xPos, int yPos) {
+        super(game, xPos, yPos, BUTTON_WIDTH, BUTTON_HEIGHT, 2);
     }
 
     protected void buttonFun() {
@@ -19,7 +19,11 @@ public class RageQuitButton extends UrmButton {
         game.gameState = GameStates.menu;
     }
 
-    protected void loadImgs() {}
+    protected void loadImgs() {
+        imgs = new BufferedImage[3];
 
-    public void draw(Graphics g) {}
+        for (int i = 0; i < imgs.length; i++) {
+            imgs[i] = LoadSave.GetSpriteAtlas(LoadSave.RESUME_RESTART_HOME_B).getSubimage(i * BUTTON_DEFAULT_WIDTH, rowIndex*BUTTON_DEFAULT_HEIGHT, BUTTON_DEFAULT_WIDTH, BUTTON_DEFAULT_HEIGHT);
+        }
+    }
 }

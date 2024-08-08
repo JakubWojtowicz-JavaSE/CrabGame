@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import static Utilz.Constants.ButtonsDetails.*;
+import static Utilz.Constants.MenuButtonsDetails.*;
 
 public abstract class UrmButton {
 
