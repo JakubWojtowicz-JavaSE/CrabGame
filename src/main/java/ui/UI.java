@@ -13,6 +13,7 @@ import java.io.InputStream;
 public class UI {
 
     private Game game;
+    private Graphics g;
     private Font font;
     private UrmButton[] buttons;
     private int BUTTONS_IN_MENU = 3;
@@ -23,6 +24,7 @@ public class UI {
     private Image backgroundImg;
     private Image menuImg;
     private Image healthBar;
+    private Image pauseMenuImg;
     private Image deathScreenImg;
 
     public UI(Game game) {
@@ -43,13 +45,13 @@ public class UI {
         } catch (FontFormatException e) {
             throw new RuntimeException(e);
         }
-//        font = new Font("/COPRGTB.TTF", Font.TRUETYPE_FONT, (int) (15*Game.SCALE));
     }
 
     private void setImgs() {
         backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.BASKGROUND_IMG);
         menuImg = LoadSave.GetSpriteAtlas(LoadSave.MENU_IMG);
         healthBar = LoadSave.GetSpriteAtlas(LoadSave.HEALTH_BAR_IMG);
+        pauseMenuImg = LoadSave.GetSpriteAtlas(LoadSave.MENU_IMG);
         deathScreenImg = LoadSave.GetSpriteAtlas(LoadSave.DEATH_SCREEN);
     }
 
@@ -81,29 +83,31 @@ public class UI {
     }
 
     public void draw(Graphics g) {
+        this.g = g;
+
         g.setFont(font.deriveFont(17*Game.SCALE));
         if (game.gameState == GameStates.menu) {
-            drawBg(g);
-            drawMenu(g);
+            drawBg();
+            drawMenu();
         } else if (game.gameState == GameStates.playing) {
-            drawPlaying(g);
+            drawPlaying();
         } else if (game.gameState == GameStates.pause) {
 
         } else if (game.gameState == GameStates.deathScreen) {
-            drawPlaying(g);
-            drawDeathScr(g);
+            drawPlaying();
+            drawDeathScr();
         }
     }
 
-    private void drawBg(Graphics g) {
+    private void drawBg() {
         g.drawImage(backgroundImg, 0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT, null);
     }
 
     private int menuX = (int) ((Game.WINDOW_WIDTH-188*Game.SCALE)/2);
     private int menuY = (int) (Game.WINDOW_HEIGHT-270.66f * Game.SCALE)/2;
 
-    private void drawMenu(Graphics g) {
-        drawBg(g);
+    private void drawMenu() {
+        drawBg();
         g.drawImage(menuImg, menuX, menuY, (int) (188*Game.SCALE), (int) (270.66f*Game.SCALE), null);
 
         for (int i = 0; i < BUTTONS_IN_MENU; i++) {
@@ -111,19 +115,19 @@ public class UI {
         }
     }
 
-    private void drawPlaying(Graphics g) {
-        drawBg(g);
+    private void drawPlaying() {
+        drawBg();
         game.player.draw(g);
         game.eSpawner.draw(g);
-        drawHealthBar(g);
-        drawScore(g, Game.WINDOW_WIDTH/2-(int) (40*Game.SCALE), (int) (80*Game.SCALE));
+        drawHealthBar();
+        drawStr("SCORE: " + game.player.score, Game.WINDOW_WIDTH/2-(int) (40*Game.SCALE), (int) (80*Game.SCALE));
     }
 
     private int hBarX = (int) (3*Game.SCALE);
     private int hBarY = (int) (5*Game.SCALE);
     private int fullHealth;
     private int toFill;
-    private void drawHealthBar(Graphics g) {
+    private void drawHealthBar() {
         g.drawImage(healthBar, hBarX, hBarY, (int) (144*Game.SCALE), (int) (43.5f*Game.SCALE), null);
 
         fullHealth = (int) (112.5f*Game.SCALE);
@@ -137,22 +141,22 @@ public class UI {
         g.fillRect(hBarX + (int) (33*Game.SCALE), hBarY + (int) (25.5f*Game.SCALE), toFill, (int) (1.5f*Game.SCALE));
     }
 
-    private void drawScore(Graphics g, int x, int y) {
+    private void drawStr(String str, int x, int y) {
+        g.setFont(font.deriveFont(25*Game.SCALE));
         g.setColor(Color.BLACK);
-        g.setFont(font.deriveFont(25*Game.SCALE));
-        g.drawString("SCORE: " + game.player.score, x, y);
+        g.drawString(str, x, y);
         g.setColor(Color.WHITE);
-        g.setFont(font.deriveFont(25*Game.SCALE));
-        g.drawString("SCORE: " + game.player.score, x, y+4);
+        g.drawString(str, x, y+4);
     }
 
     private int deathSX = (Game.WINDOW_WIDTH-Constants.DeathScreenDetails.DEATH_S_WIDTH) / 2;
     private int deathSY = (Game.WINDOW_HEIGHT-Constants.DeathScreenDetails.DEATH_S_HEIGHT) / 2;
-    private void drawDeathScr(Graphics g) {
+    private void drawDeathScr() {
         g.setColor(new Color(0, 0, 0, 150));
         g.fillRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         g.drawImage(deathScreenImg, deathSX, deathSY, Constants.DeathScreenDetails.DEATH_S_WIDTH, Constants.DeathScreenDetails.DEATH_S_HEIGHT, null);
-        drawScore(g, deathSX+(int) (56*Game.SCALE), deathSY+(int) (118*Game.SCALE));
+        drawStr("SCORE: " + game.player.score, deathSX+(int) (55*Game.SCALE), deathSY+(int) (105*Game.SCALE));
+        drawStr("BEST SCORE: " + game.player.bestScore, deathSX+(int) (24*Game.SCALE), deathSY+(int) (135*Game.SCALE));
     }
 
     // to buttons

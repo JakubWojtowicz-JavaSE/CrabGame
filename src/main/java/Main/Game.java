@@ -54,7 +54,6 @@ public class Game extends JPanel implements Runnable {
 
         random = new Random();
         data = LoadSave.LoadData();
-        System.out.println(data.bestScore);
 
         player = new Player(this, WINDOW_WIDTH/2-TILE_SIZE/2);
     }

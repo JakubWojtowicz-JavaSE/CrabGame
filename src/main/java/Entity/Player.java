@@ -12,13 +12,14 @@ import static Utilz.Constants.CrabbyDetails.*;
 
 public class Player extends Entity {
 
-    public int score;
+    public int score, bestScore;
 
     public Player(Game game, int xPos) {
         super(game, Type.player,  xPos, 10*Game.TILE_SIZE, CRABBY_WIDTH, CRABBY_HEIGHT, 2.5f, 4, IDLE);
         name = "Crabby";
 
-        score = 0;
+        score = 12;
+        bestScore = game.data.bestScore;
     }
 
     protected void initCollSpaces() {
@@ -105,6 +106,10 @@ public class Player extends Entity {
         }
     }
 
+    public void updateBestScore() {
+        bestScore = game.data.bestScore;
+    }
+
     public void draw(Graphics g) {
         int x = posData.getXPos();
         int width = posData.getWidth();
@@ -118,6 +123,7 @@ public class Player extends Entity {
 
     public void reset() {
         score = 0;
+        bestScore = game.data.bestScore;
 
         dir = Direction.idle;
         state = IDLE;
