@@ -80,6 +80,18 @@ public class Constants {
         public static final int BUTTON_HEIGHT = (int) (BUTTON_DEFAULT_HEIGHT/1.2f*Game.SCALE);//46.66
     }
 
+    public static class VolumeSliderDetails {
+        public static final int VOLUME_SLIDER_DEFAULT_WIDTH = 28;
+        public static final int VOLUME_SLIDER_DEFAULT_HEIGHT = 44;
+        public static final int VOLUME_SLIDER_BG_DEFAULT_WIDTH = 215;
+        public static final int VOLUME_SLIDER_BG_DEFAULT_HEIGHT = 44;
+
+        public static final int VOLUME_SLIDER_WIDTH = (int) (VOLUME_SLIDER_DEFAULT_WIDTH/1.5f*Game.SCALE);
+        public static final int VOLUME_SLIDER_HEIGHT = (int) (VOLUME_SLIDER_DEFAULT_HEIGHT/1.5f*Game.SCALE);
+        public static final int VOLUME_SLIDER_BG_WIDTH = (int) (VOLUME_SLIDER_BG_DEFAULT_WIDTH/1.5f*Game.SCALE);
+        public static final int VOLUME_SLIDER_BG_HEIGHT = (int) (VOLUME_SLIDER_BG_DEFAULT_HEIGHT/1.5f*Game.SCALE);
+    }
+
     public static class DeathScreenDetails {
         public static final int DEATH_S_DEFAULT_WIDTH = 235;
         public static final int DEATH_S_DEFAULT_HEIGHT = 255;

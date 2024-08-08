@@ -9,14 +9,14 @@ import java.awt.image.BufferedImage;
 
 import static Utilz.Constants.ButtonsDetails.*;
 
-public class UrmButton {
+public abstract class UrmButton {
 
     protected Game game;
     protected BufferedImage[] imgs;
     protected Rectangle bounds;
 
     protected boolean isPressed, isMouseOver;
-    protected int state, rowIndex;
+    protected int index, rowIndex;
 
     public UrmButton(Game game, int xPos, int yPos, int width, int height, int rowIndex) {
         this.game = game;
@@ -24,7 +24,7 @@ public class UrmButton {
 
         bounds = new Rectangle(xPos, yPos, width, height);
 
-        state = 0;
+        index = 0;
         loadImgs();
     }
 
@@ -38,17 +38,17 @@ public class UrmButton {
 
     public void update() {
         if (isPressed)
-            state = 2;
+            index = 2;
         else if (isMouseOver)
-            state = 1;
+            index = 1;
         else
-            state = 0;
+            index = 0;
     }
 
     protected void buttonFun() {}
 
     public void draw(Graphics g) {
-        g.drawImage(imgs[state], bounds.x, bounds.y, bounds.width, bounds.height, null);
+        g.drawImage(imgs[index], bounds.x, bounds.y, bounds.width, bounds.height, null);
     }
 
     public void mousePressed(MouseEvent e) {
@@ -74,6 +74,8 @@ public class UrmButton {
             isPressed = false;
         }
     }
+
+    public void mouseDragged(MouseEvent e) {}
 
     private boolean isIn(MouseEvent e) {
         if (bounds.contains(e.getX(), e.getY()))

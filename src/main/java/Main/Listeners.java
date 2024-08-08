@@ -26,7 +26,14 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
             rightPressed = true;
         else if (code == KeyEvent.VK_SHIFT || code == KeyEvent.VK_SPACE)
             game.player.setAttacking(true);
-        else if (/*code == KeyEvent.VK_B || */code == KeyEvent.VK_MULTIPLY) {
+        else if (code == KeyEvent.VK_ESCAPE) {
+            if (game.gameState == GameStates.playing)
+                game.gameState = GameStates.pause;
+            else if (game.gameState == GameStates.pause)
+                game.gameState = GameStates.playing;
+            else if (game.gameState == GameStates.options)
+                game.gameState = GameStates.menu;
+        } else if (/*code == KeyEvent.VK_B || */code == KeyEvent.VK_MULTIPLY) {
             if (!debbugging)
                 debbugging = true;
             else
@@ -73,7 +80,7 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        game.ui.mouseDragged(e);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class Player extends Entity {
         super(game, Type.player,  xPos, 10*Game.TILE_SIZE, CRABBY_WIDTH, CRABBY_HEIGHT, 2.5f, 4, IDLE);
         name = "Crabby";
 
-        score = 12;
+        score = 0;
         bestScore = game.data.bestScore;
     }
 

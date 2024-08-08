@@ -6,10 +6,12 @@ import Utilz.Constants;
 
 import java.awt.*;
 
-    public class RetryButton extends UrmButton {
+import static Utilz.Constants.DeathScreenDetails.*;
+
+public class RetryButton extends UrmButton {
 
         public RetryButton(Game game, int xPos, int yPos, int rowIndex) {
-            super(game, xPos, yPos, Constants.DeathScreenDetails.DEATH_S_RETRY_B_WIDTH, Constants.DeathScreenDetails.DEATH_S_RETRY_B_HEIGHT, rowIndex);
+            super(game, xPos, yPos, DEATH_S_RETRY_B_WIDTH, DEATH_S_RETRY_B_HEIGHT, rowIndex);
         }
 
         protected void buttonFun() {

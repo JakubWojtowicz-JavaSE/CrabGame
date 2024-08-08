@@ -1,6 +1,7 @@
 package ui;
 
 import Main.Game;
+import Main.GameStates;
 
 import static Utilz.Constants.ButtonsDetails.BUTTON_HEIGHT;
 import static Utilz.Constants.ButtonsDetails.BUTTON_WIDTH;
@@ -12,6 +13,6 @@ public class OptionsButton extends UrmButton {
     }
 
     protected void buttonFun() {
-        System.out.println("Options"); // to implement
+        game.gameState = GameStates.options;
     }
 }

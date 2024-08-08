@@ -6,10 +6,12 @@ import Utilz.Constants;
 
 import java.awt.*;
 
+import static Utilz.Constants.DeathScreenDetails.*;
+
 public class RageQuitButton extends UrmButton {
 
     public RageQuitButton(Game game, int xPos, int yPos, int rowIndex) {
-        super(game, xPos, yPos, Constants.DeathScreenDetails.DEATH_S_RAGE_Q_B_WIDTH, Constants.DeathScreenDetails.DEATH_S_RAGE_Q_B_HEIGHT, rowIndex);
+        super(game, xPos, yPos, DEATH_S_RAGE_Q_B_WIDTH, DEATH_S_RAGE_Q_B_HEIGHT, rowIndex);
     }
 
     protected void buttonFun() {
