@@ -66,8 +66,8 @@ public class UI {
 
         buttons[3] = new VolumeSlider(game, menuX + (int) (23f*Game.SCALE), (int) (228f*Game.SCALE));
 
-        buttons[4] = new RageQuitButton(game,  deathSX + (int) (26.66f * Game.SCALE), deathSY + (int) (151f*Game.SCALE));
-        buttons[5] = new RetryButton(game,  deathSX + (int) (107f * Game.SCALE), deathSY + (int) (151f*Game.SCALE));
+        buttons[4] = new RageQuitButton(game,  deathSX + (int) (31f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
+        buttons[5] = new RetryButton(game,  deathSX + (int) (120f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
     }
 
     public void update() {
@@ -176,8 +176,8 @@ public class UI {
         g.setColor(new Color(0, 0, 0, 150));
         g.fillRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         g.drawImage(deathScreenImg, deathSX, deathSY, Constants.DeathScreenDetails.DEATH_S_WIDTH, Constants.DeathScreenDetails.DEATH_S_HEIGHT, null);
-        drawStr("SCORE: " + game.player.score, deathSX+(int) (55*Game.SCALE), deathSY+(int) (105*Game.SCALE));
-        drawStr("BEST SCORE: " + game.player.bestScore, deathSX+(int) (24*Game.SCALE), deathSY+(int) (135*Game.SCALE));
+        drawStr("SCORE: " + game.player.score, deathSX+(int) (55*Game.SCALE), deathSY/2-(int) (5*Game.SCALE));
+        drawStr("BEST SCORE: " + game.player.bestScore, deathSX+(int) (24*Game.SCALE), deathSY/2+(int) (25*Game.SCALE));
 
         for (int i = 0; i < BUTTONS_IN_DEATH_S; i++) {
             buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].draw(g);
