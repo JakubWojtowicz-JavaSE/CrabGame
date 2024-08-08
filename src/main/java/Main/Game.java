@@ -37,7 +37,7 @@ public class Game extends JPanel implements Runnable {
     public Game() {
         initClasses();
 
-        gameState = GameStates.deathScreen;
+        gameState = GameStates.menu;
 
         setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         setBackground(Color.BLACK);
