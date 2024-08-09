@@ -1,5 +1,6 @@
 package ui;
 
+import Entity.Type;
 import Main.Game;
 import Main.GameStates;
 import Utilz.Constants;
@@ -17,7 +18,7 @@ public class UI {
     private Font font;
     private UrmButton[] buttons;
     private int BUTTONS_IN_MENU = 3;
-    private int BUTTONS_IN_OPTIONS = 2;
+    private int BUTTONS_IN_OPTIONS = 4;
     private int BUTTONS_IN_DEATH_S = 2;
     private static int PLAY_B = 0;
     private static int OPTIONS_B = 1;
@@ -64,11 +65,13 @@ public class UI {
         buttons[1] = new OptionsButton(game, menuX + (int) (36f*Game.SCALE), menuY + Constants.MenuButtonsDetails.BUTTON_HEIGHT + (int) (85*Game.SCALE));
         buttons[2] = new QuitButton(game, menuX + (int) (36f*Game.SCALE), menuY + 2* Constants.MenuButtonsDetails.BUTTON_HEIGHT + (int) (95*Game.SCALE));
 
-        buttons[3] = new RageQuitButton(game, menuX + (int) (75f*Game.SCALE), menuY + (int) (200f*Game.SCALE));
-        buttons[4] = new VolumeSlider(game, menuX + (int) (23f*Game.SCALE), (int) (228f*Game.SCALE));
+        buttons[3] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (72f*Game.SCALE), Type.music);
+        buttons[4] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (105f*Game.SCALE), Type.sfx);
+        buttons[5] = new VolumeSlider(game, menuX + (int) (23f*Game.SCALE), (int) (228f*Game.SCALE));
+        buttons[6] = new RageQuitButton(game, menuX + (int) (75f*Game.SCALE), menuY + (int) (200f*Game.SCALE));
 
-        buttons[5] = new RageQuitButton(game,  deathSX + (int) (31f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
-        buttons[6] = new RetryButton(game,  deathSX + (int) (120f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
+        buttons[7] = new RageQuitButton(game,  deathSX + (int) (31f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
+        buttons[8] = new RetryButton(game,  deathSX + (int) (120f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
     }
 
     public void update() {

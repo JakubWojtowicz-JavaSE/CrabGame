@@ -81,11 +81,17 @@ public class Constants {
     }
 
     public static class OptionsButtonsDetails {
-        public static final int BUTTON_DEFAULT_WIDTH = 56;
-        public static final int BUTTON_DEFAULT_HEIGHT = 56;
+        public static final int NAVIGATE_BUTTON_DEFAULT_WIDTH = 56;
+        public static final int NAVIGATE_BUTTON_DEFAULT_HEIGHT = 56;
 
-        public static final int BUTTON_WIDTH = (int) (BUTTON_DEFAULT_WIDTH/1.5f*Game.SCALE);
-        public static final int BUTTON_HEIGHT = (int) (BUTTON_DEFAULT_HEIGHT/1.5f*Game.SCALE);
+        public static final int SOUND_BUTTON_DEFAULT_WIDTH = 42;
+        public static final int SOUND_BUTTON_DEFAULT_HEIGHT = 42;
+
+        public static final int NAVIGATE_BUTTON_WIDTH = (int) (NAVIGATE_BUTTON_DEFAULT_WIDTH/1.5f*Game.SCALE);
+        public static final int NAVIGATE_BUTTON_HEIGHT = (int) (NAVIGATE_BUTTON_DEFAULT_HEIGHT/1.5f*Game.SCALE);
+
+        public static final int SOUND_BUTTON_WIDTH = (int) (NAVIGATE_BUTTON_DEFAULT_WIDTH/1.75f*Game.SCALE);
+        public static final int SOUND_BUTTON_HEIGHT = (int) (NAVIGATE_BUTTON_DEFAULT_HEIGHT/1.75f*Game.SCALE);
     }
 
     public static class VolumeSliderDetails {

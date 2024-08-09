@@ -11,10 +11,10 @@ import static Utilz.Constants.VolumeSliderDetails.*;
 
 public class VolumeSlider extends UrmButton {
 
-    private int sliderBgXPos;
-    private int sliderBgYPos;
-    private int minSliderX;
-    private int maxSliderX;
+    private int sliderBgXPos, sliderBgYPos;
+    private int minSliderX, maxSliderX;
+
+    private int volume;
 
     public VolumeSlider(Game game, int sliderX, int sliderY) {
         super(game, sliderX, sliderY, VOLUME_SLIDER_WIDTH, VOLUME_SLIDER_HEIGHT, 0);
@@ -26,11 +26,19 @@ public class VolumeSlider extends UrmButton {
             bounds.x = minSliderX;
         else if (bounds.x > maxSliderX)
             bounds.x = maxSliderX;
+        setVolume();
     }
 
     private void setMinAndMaxXValue() {
         minSliderX = sliderBgXPos + (int) (3*Game.SCALE);
         maxSliderX = sliderBgXPos + VOLUME_SLIDER_BG_WIDTH - VOLUME_SLIDER_WIDTH - (int) (3 * Game.SCALE);
+    }
+
+    private void setVolume() {
+        volume = game.data.volume;
+        bounds.x = minSliderX + (volume * (maxSliderX - minSliderX) / 100);
+
+//        bounds.x = 100 / maxSliderX * volume;
     }
 
     protected void buttonFun() {}
@@ -42,14 +50,6 @@ public class VolumeSlider extends UrmButton {
             imgs[i] = LoadSave.GetSpriteAtlas(LoadSave.VOLUME_B_IMG).getSubimage(i*VOLUME_SLIDER_DEFAULT_WIDTH, 0, VOLUME_SLIDER_DEFAULT_WIDTH, VOLUME_SLIDER_DEFAULT_HEIGHT);
         }
         imgs[3] = LoadSave.GetSpriteAtlas(LoadSave.VOLUME_B_IMG).getSubimage(3*VOLUME_SLIDER_DEFAULT_WIDTH, 0, VOLUME_SLIDER_BG_DEFAULT_WIDTH, VOLUME_SLIDER_BG_DEFAULT_HEIGHT);
-    }
-
-    public void update() {
-        super.update();
-
-         /*else if (bounds.x > sliderBgXPos - (int) (2 * Game.SCALE)) {
-            bounds.x = sliderBgXPos - (int) (2 * Game.SCALE);
-        }*/
     }
 
     public void draw(Graphics g) {
@@ -66,6 +66,9 @@ public class VolumeSlider extends UrmButton {
             } if (bounds.x > maxSliderX) {
                 bounds.x = maxSliderX;
             }
+
+            volume = (int) ((bounds.x-minSliderX) / (float) (maxSliderX-minSliderX) * 100);
+            game.data.volume = volume;
         }
     }
 }

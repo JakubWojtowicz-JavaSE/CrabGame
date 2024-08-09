@@ -1,6 +1,7 @@
 package ui;
 
 import Main.Game;
+import Utilz.LoadSave;
 
 import static Utilz.Constants.MenuButtonsDetails.BUTTON_HEIGHT;
 import static Utilz.Constants.MenuButtonsDetails.BUTTON_WIDTH;
@@ -12,6 +13,7 @@ public class QuitButton extends UrmButton {
     }
 
     protected void buttonFun() {
+        LoadSave.SaveData(game.data);
         System.exit(0);
     }
 }

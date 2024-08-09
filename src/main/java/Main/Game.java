@@ -47,13 +47,14 @@ public class Game extends JPanel implements Runnable {
     }
 
     private void initClasses() {
+        data = LoadSave.LoadData();
+
         eSpawner = new EntitySpawner(this);
         collisionCh = new CollisionChecker(this);
         listeners = new Listeners(this);
         ui = new UI(this);
 
         random = new Random();
-        data = LoadSave.LoadData();
 
         player = new Player(this, WINDOW_WIDTH/2-TILE_SIZE/2);
     }
