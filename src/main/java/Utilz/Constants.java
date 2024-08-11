@@ -28,6 +28,7 @@ public class Constants {
             }
             case "Ball" -> {return 1;}
             case "Potion" -> {return PotionDetails.SPRITES_IN_COL;}
+            case "Money" -> {return 1;}
         }
         return 0;
     }
@@ -56,9 +57,6 @@ public class Constants {
         public static final int BALL_WIDTH = (int) (BALL_DEFAULT_WIDTH * Game.SCALE);
         public static final int BALL_HEIGHT = (int) (BALL_DEFAULT_HEIGHT * Game.SCALE);
 
-        public static final int SPRITES_IN_ROW = 1;
-        public static final int SPRITES_IN_COL = 1;
-
 
     }
 
@@ -69,6 +67,7 @@ public class Constants {
         public static final int POTION_WIDTH = (int) (POTION_DEFAULT_WIDTH * 2 * Game.SCALE);
         public static final int POTION_HEIGHT = (int) (POTION_DEFAULT_HEIGHT * 2 * Game.SCALE);
 
+        public static final int SPRITES_IN_ROW = 1;
         public static final int SPRITES_IN_COL = 7;
     }
 
@@ -118,7 +117,7 @@ public class Constants {
         public static final int MONEY_DEFAULT_WIDTH = 11;
         public static final int MONEY_DEFAULT_HEIGHT = 11;
 
-        public static final int MONEY_WIDTH = (int) (MONEY_DEFAULT_WIDTH*Game.SCALE);
-        public static final int MONEY_HEIGHT = (int) (MONEY_DEFAULT_HEIGHT*Game.SCALE);
+        public static final int MONEY_WIDTH = (int) (MONEY_DEFAULT_WIDTH*2.8f*Game.SCALE);
+        public static final int MONEY_HEIGHT = (int) (MONEY_DEFAULT_HEIGHT*2.8f*Game.SCALE);
     }
 }

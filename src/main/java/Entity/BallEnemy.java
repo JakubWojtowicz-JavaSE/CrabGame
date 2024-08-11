@@ -17,8 +17,7 @@ public class BallEnemy extends Entity {
     }
 
     protected void loadImgs() {
-        imgs = new BufferedImage[SPRITES_IN_ROW][SPRITES_IN_COL];
-
+        imgs = new BufferedImage[1][1];
         imgs[0][0] = LoadSave.GetSpriteAtlas(LoadSave.BALL_SPRITE);
     }
 

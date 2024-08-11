@@ -2,6 +2,7 @@ package Main;
 
 import Entity.BallEnemy;
 import Entity.Potion;
+import Entity.Money;
 import Entity.Type;
 import Entity.Entity;
 import Utilz.Constants;
@@ -13,18 +14,18 @@ public class EntitySpawner {
 
     private Game game;
     public ArrayList<Entity> enemies;
-    public ArrayList<Potion> potions;
+    public ArrayList<Entity> objects;
 
     // gen sett
     private int genCounter, genSpace, enemySpeed, times, maxTimes;
-    private int pGenCounter, pGenSpace;
+    private int oGenCounter, oGenSpace;
     private int defYPos;
 
     public EntitySpawner(Game game) {
         this.game = game;
 
         enemies = new ArrayList<>();
-        potions = new ArrayList<>();
+        objects = new ArrayList<>();
         setDefVar();
     }
 
@@ -35,13 +36,13 @@ public class EntitySpawner {
         times = 0;
         maxTimes = 50;
 
-        pGenCounter = 0;
-        pGenSpace = 120;
+        oGenCounter = 0;
+        oGenSpace = 120;
 
         defYPos = -Game.TILE_SIZE;
 
         enemies.clear();
-        potions.clear();
+        objects.clear();
     }
 
     private void genEnemies() {
@@ -63,29 +64,30 @@ public class EntitySpawner {
         }
     }
 
-    private void genPotions() {
-        pGenCounter++;
-        if (pGenCounter >= pGenSpace) {
+    private void genObjects() {
+        oGenCounter++;
+        if (oGenCounter >= oGenSpace) {
             if (game.random.nextInt(100) > 75)
-                potions.add(new Potion(game, Type.potion_g, game.random.nextInt(Game.WINDOW_WIDTH-Constants.PotionDetails.POTION_WIDTH), defYPos, 2.6f));
+                objects.add(new Potion(game, Type.potion_g, game.random.nextInt(Game.WINDOW_WIDTH-Constants.PotionDetails.POTION_WIDTH), defYPos, 2.6f));
             else
-                potions.add(new Potion(game, Type.potion_b, game.random.nextInt(Game.WINDOW_WIDTH-Constants.PotionDetails.POTION_WIDTH), defYPos, 2.5f));
-            pGenCounter = 0;
+                objects.add(new Potion(game, Type.potion_b, game.random.nextInt(Game.WINDOW_WIDTH-Constants.PotionDetails.POTION_WIDTH), defYPos, 2.5f));
+            objects.add(new Money(game, game.random.nextInt(Game.WINDOW_WIDTH-Constants.PotionDetails.POTION_WIDTH), defYPos, 2.5f));
+            oGenCounter = 0;
         }
     }
 
     public void update() {
         genEnemies();
-        genPotions();
+        genObjects();
 
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i) != null) {
                 enemies.get(i).update();
             }
         }
-        for (int i = 0; i < potions.size(); i++) {
-            if (potions.get(i) != null) {
-                potions.get(i).update();
+        for (int i = 0; i < objects.size(); i++) {
+            if (objects.get(i) != null) {
+                objects.get(i).update();
             }
         }
     }
@@ -96,9 +98,9 @@ public class EntitySpawner {
                 enemies.get(i).draw(g);
             }
         }
-        for (int i = 0; i < potions.size(); i++) {
-            if (potions.get(i) != null) {
-                potions.get(i).draw(g);
+        for (int i = 0; i < objects.size(); i++) {
+            if (objects.get(i) != null) {
+                objects.get(i).draw(g);
             }
         }
     }

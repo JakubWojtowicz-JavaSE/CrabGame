@@ -19,6 +19,7 @@ public class LoadSave {
     public static final String CRABBY_SPRITES = "entitySprites/crabby_sprite.png";
     public static final String BALL_SPRITE = "entitySprites/ball.png";
     public static final String POTION_SPRITE = "entitySprites/potions_sprites.png";
+    public static final String MONEY_SPRITE = "entitySprites/money.png";
 
     public static final String path = "data.crb";
 

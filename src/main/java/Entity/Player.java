@@ -12,7 +12,7 @@ import static Utilz.Constants.CrabbyDetails.*;
 
 public class Player extends Entity {
 
-    public int score, bestScore;
+    public int score, bestScore, budget;
 
     public Player(Game game, int xPos) {
         super(game, Type.player,  xPos, 10*Game.TILE_SIZE, CRABBY_WIDTH, CRABBY_HEIGHT, 2.5f, 4, IDLE);
@@ -20,6 +20,7 @@ public class Player extends Entity {
 
         score = 0;
         bestScore = game.data.bestScore;
+        budget = game.data.budget;
     }
 
     protected void initCollSpaces() {
@@ -95,15 +96,26 @@ public class Player extends Entity {
     }
 
     public void giveDamage(int damage) {
+        boolean toSave = false;
         state = HIT;
         health -= damage;
         if (health <= 0) {
             if (score > game.data.bestScore) {
                 game.data.bestScore = score;
-                LoadSave.SaveData(game.data);
+                toSave = true;
             }
+            if (budget > game.data.budget) {
+                game.data.budget = budget;
+                toSave = true;
+            }
+            if (toSave)
+                LoadSave.SaveData(game.data);
             game.gameState = GameStates.deathScreen;
         }
+    }
+
+    public void increaseBudget(int i) {
+        budget += i;
     }
 
     public void updateBestScore() {

@@ -29,7 +29,7 @@ public class Potion extends Entity {
     }
 
     protected void loadImgs() {
-        imgs = new BufferedImage[1][SPRITES_IN_COL];
+        imgs = new BufferedImage[SPRITES_IN_ROW][SPRITES_IN_COL];
 
         int j = 0;
         if (entityType == Type.potion_g)
@@ -59,7 +59,7 @@ public class Potion extends Entity {
         }
         dieCounter++;
         if (dieCounter >= 35) {
-            game.eSpawner.potions.remove(this);
+            game.eSpawner.objects.remove(this);
         }
     }
 
