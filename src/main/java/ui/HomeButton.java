@@ -8,9 +8,9 @@ import java.awt.image.BufferedImage;
 
 import static Utilz.Constants.OptionsButtonsDetails.*;
 
-public class RageQuitButton extends UrmButton {
+public class HomeButton extends UrmButton {
 
-    public RageQuitButton(Game game, int xPos, int yPos) {
+    public HomeButton(Game game, int xPos, int yPos) {
         super(game, xPos, yPos, NAVIGATE_BUTTON_WIDTH, NAVIGATE_BUTTON_HEIGHT, 2);
     }
 

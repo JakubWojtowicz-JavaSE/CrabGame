@@ -19,6 +19,7 @@ public class UI {
     private UrmButton[] buttons;
     private int BUTTONS_IN_MENU = 3;
     private int BUTTONS_IN_OPTIONS = 4;
+    private int BUTTONS_IN_PAUSE = 4;
     private int BUTTONS_IN_DEATH_S = 2;
     private static int PLAY_B = 0;
     private static int OPTIONS_B = 1;
@@ -55,12 +56,12 @@ public class UI {
         optionsImg = LoadSave.GetSpriteAtlas(LoadSave.OPTIONS_IMG);
         menuImg = LoadSave.GetSpriteAtlas(LoadSave.MENU_IMG);
         healthBar = LoadSave.GetSpriteAtlas(LoadSave.HEALTH_BAR_IMG);
-        pauseMenuImg = LoadSave.GetSpriteAtlas(LoadSave.MENU_IMG);
+        pauseMenuImg = LoadSave.GetSpriteAtlas(LoadSave.PAUSE_MENU);
         deathScreenImg = LoadSave.GetSpriteAtlas(LoadSave.DEATH_SCREEN);
     }
 
     private void createButtons() {
-        buttons = new UrmButton[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+BUTTONS_IN_DEATH_S];
+        buttons = new UrmButton[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+BUTTONS_IN_PAUSE+BUTTONS_IN_DEATH_S];
         buttons[0] = new PlayButton(game, menuX + (int) (36f*Game.SCALE), menuY + (int) (75*Game.SCALE));
         buttons[1] = new OptionsButton(game, menuX + (int) (36f*Game.SCALE), menuY + Constants.MenuButtonsDetails.BUTTON_HEIGHT + (int) (85*Game.SCALE));
         buttons[2] = new QuitButton(game, menuX + (int) (36f*Game.SCALE), menuY + 2* Constants.MenuButtonsDetails.BUTTON_HEIGHT + (int) (95*Game.SCALE));
@@ -68,10 +69,15 @@ public class UI {
         buttons[3] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (72f*Game.SCALE), Type.music);
         buttons[4] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (105f*Game.SCALE), Type.sfx);
         buttons[5] = new VolumeSlider(game, menuX + (int) (23f*Game.SCALE), (int) (228f*Game.SCALE));
-        buttons[6] = new RageQuitButton(game, menuX + (int) (75f*Game.SCALE), menuY + (int) (200f*Game.SCALE));
+        buttons[6] = new HomeButton(game, menuX + (int) (75f*Game.SCALE), menuY + (int) (200f*Game.SCALE));
 
-        buttons[7] = new RageQuitButton(game,  deathSX + (int) (31f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
-        buttons[8] = new RetryButton(game,  deathSX + (int) (120f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
+        buttons[7] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (79.5f*Game.SCALE), Type.music);
+        buttons[8] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (112.5f*Game.SCALE), Type.sfx);
+        buttons[9] = new VolumeSlider(game, menuX + (int) (23f*Game.SCALE), (int) (235.5f*Game.SCALE));
+        buttons[10] = new HomeButton(game, menuX + (int) (75f*Game.SCALE), menuY + (int) (212f*Game.SCALE));
+
+        buttons[11] = new HomeButton(game,  deathSX + (int) (31f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
+        buttons[12] = new RetryButton(game,  deathSX + (int) (120f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
     }
 
     public void update() {
@@ -83,15 +89,20 @@ public class UI {
             for (int i = 0; i < BUTTONS_IN_OPTIONS; i++) {
                 buttons[BUTTONS_IN_MENU+i].update();
             }
+        } else if (game.gameState == GameStates.pause) {
+            for (int i = 0; i < BUTTONS_IN_PAUSE; i++) {
+                buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].update();
+            }
         } else if (game.gameState == GameStates.deathScreen) {
             for (int i = 0; i < BUTTONS_IN_DEATH_S; i++) {
-                buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].update();
+                buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+BUTTONS_IN_PAUSE+i].update();
             }
         }
     }
 
     public void resetButtons() {
         for (UrmButton button : buttons) {
+            button.index = 0;
             button.isPressed = false;
             button.isMouseOver = false;
         }
@@ -108,7 +119,8 @@ public class UI {
         } else if (game.gameState == GameStates.playing) {
             drawPlaying();
         } else if (game.gameState == GameStates.pause) {
-
+            drawPlaying();
+            drawPause();
         } else if (game.gameState == GameStates.deathScreen) {
             drawPlaying();
             drawDeathScr();
@@ -174,18 +186,31 @@ public class UI {
         g.drawString(str, x, y+4);
     }
 
+    private void drawPause() {
+        darkenScreen();
+        g.drawImage(pauseMenuImg, menuX, menuY, (int) (188*Game.SCALE), (int) (270.66f*Game.SCALE), null);
+
+        for (int i = 0; i < BUTTONS_IN_PAUSE; i++) {
+            buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].draw(g);
+        }
+    }
+
     private int deathSX = (Game.WINDOW_WIDTH-Constants.DeathScreenDetails.DEATH_S_WIDTH) / 2;
     private int deathSY = (Game.WINDOW_HEIGHT-Constants.DeathScreenDetails.DEATH_S_HEIGHT) / 2;
     private void drawDeathScr() {
-        g.setColor(new Color(0, 0, 0, 150));
-        g.fillRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
+        darkenScreen();
         g.drawImage(deathScreenImg, deathSX, deathSY, Constants.DeathScreenDetails.DEATH_S_WIDTH, Constants.DeathScreenDetails.DEATH_S_HEIGHT, null);
         drawStr("SCORE: " + game.player.score, deathSX+(int) (55*Game.SCALE), deathSY/2-(int) (5*Game.SCALE));
         drawStr("BEST SCORE: " + game.player.bestScore, deathSX+(int) (24*Game.SCALE), deathSY/2+(int) (25*Game.SCALE));
 
         for (int i = 0; i < BUTTONS_IN_DEATH_S; i++) {
-            buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].draw(g);
+            buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+BUTTONS_IN_PAUSE+i].draw(g);
         }
+    }
+
+    private void darkenScreen() {
+        g.setColor(new Color(0, 0, 0, 150));
+        g.fillRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
     }
 
     // to buttons
@@ -198,9 +223,13 @@ public class UI {
             for (int i = 0; i < BUTTONS_IN_OPTIONS; i++) {
                 buttons[BUTTONS_IN_MENU+i].mousePressed(e);
             }
+        }  else if (game.gameState == GameStates.pause) {
+            for (int i = 0; i < BUTTONS_IN_PAUSE; i++) {
+                buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].mousePressed(e);
+            }
         } else if (game.gameState == GameStates.deathScreen) {
             for (int i = 0; i < BUTTONS_IN_DEATH_S; i++) {
-                buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].mousePressed(e);
+                buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+BUTTONS_IN_PAUSE+i].mousePressed(e);
             }
         }
     }
@@ -214,16 +243,26 @@ public class UI {
             for (int i = 0; i < BUTTONS_IN_OPTIONS; i++) {
                 buttons[BUTTONS_IN_MENU+i].mouseRelased(e);
             }
-        } else if (game.gameState == GameStates.deathScreen) {
-            for (int i = 0; i < BUTTONS_IN_DEATH_S; i++) {
+        }  else if (game.gameState == GameStates.pause) {
+            for (int i = 0; i < BUTTONS_IN_PAUSE; i++) {
                 buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].mouseRelased(e);
+            }
+        }  else if (game.gameState == GameStates.deathScreen) {
+            for (int i = 0; i < BUTTONS_IN_DEATH_S; i++) {
+                buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+BUTTONS_IN_PAUSE+i].mouseRelased(e);
             }
         }
     }
 
     public void mouseDragged(MouseEvent e) {
-        for (int i = 0; i < BUTTONS_IN_OPTIONS; i++) {
-            buttons[BUTTONS_IN_MENU+i].mouseDragged(e);
+        if (game.gameState == GameStates.options) {
+            for (int i = 0; i < BUTTONS_IN_OPTIONS; i++) {
+                buttons[BUTTONS_IN_MENU+i].mouseDragged(e);
+            }
+        } else if (game.gameState == GameStates.pause) {
+            for (int i = 0; i < BUTTONS_IN_PAUSE; i++) {
+                buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].mouseDragged(e);
+            }
         }
     }
 
@@ -236,9 +275,13 @@ public class UI {
             for (int i = 0; i < BUTTONS_IN_OPTIONS; i++) {
                 buttons[BUTTONS_IN_MENU+i].mouseMoved(e);
             }
+        } else if (game.gameState == GameStates.pause) {
+            for (int i = 0; i < BUTTONS_IN_PAUSE; i++) {
+                buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].mouseMoved(e);
+            }
         } else if (game.gameState == GameStates.deathScreen) {
             for (int i = 0; i < BUTTONS_IN_DEATH_S; i++) {
-                buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+i].mouseMoved(e);
+                buttons[BUTTONS_IN_MENU+BUTTONS_IN_OPTIONS+BUTTONS_IN_PAUSE+i].mouseMoved(e);
             }
         }
     }
