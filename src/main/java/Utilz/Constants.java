@@ -113,4 +113,12 @@ public class Constants {
         public static final int DEATH_S_WIDTH = (int) (DEATH_S_DEFAULT_WIDTH/1.2f*Game.SCALE);
         public static final int DEATH_S_HEIGHT = (int) (DEATH_S_DEFAULT_HEIGHT/1.2f*Game.SCALE);
     }
+
+    public static class MoneyDetails {
+        public static final int MONEY_DEFAULT_WIDTH = 11;
+        public static final int MONEY_DEFAULT_HEIGHT = 11;
+
+        public static final int MONEY_WIDTH = (int) (MONEY_DEFAULT_WIDTH*Game.SCALE);
+        public static final int MONEY_HEIGHT = (int) (MONEY_DEFAULT_HEIGHT*Game.SCALE);
+    }
 }

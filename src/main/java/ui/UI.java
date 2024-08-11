@@ -38,7 +38,7 @@ public class UI {
 
     private void setFonts() {
         try {
-            InputStream is = getClass().getResourceAsStream("/Font.ttf");
+            InputStream is = getClass().getResourceAsStream("/ui/Font.ttf");
             font = Font.createFont(Font.TRUETYPE_FONT, is);
             is.close();
         } catch (IOException e) {
