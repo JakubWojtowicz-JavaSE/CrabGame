@@ -29,7 +29,8 @@ public class Player extends Entity {
         budget = game.data.budget;
         skinIndex = game.data.skinNum;
 
-        loadSkin(skinIndex);
+        if (skinIndex > 0) // -1 is Crabby, I wanted to be 0, but skins list has beggining from 0 (I don 't want to give Crabby to that list)
+            loadSkin(skinIndex);
     }
 
     private void loadSkin(int index) {

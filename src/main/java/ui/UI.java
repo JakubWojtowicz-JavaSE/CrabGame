@@ -49,11 +49,10 @@ public class UI {
     public UI(Game game) {
         this.game = game;
 
+        setSkins();
         setFonts();
         setImgs();
         createButtons();
-
-        setSkins();
     }
 
     private void setFonts() {
@@ -78,9 +77,17 @@ public class UI {
     }
 
     private void setSkins() {
+        int col = 0;
+        int row = 0;
+        int startX = (int) (50f*Game.SCALE);
+        int startY = (int) (100f*Game.SCALE);
+        int widthSPlace = Game.WINDOW_WIDTH-startX*2;
+        int heightSPlace = Game.WINDOW_HEIGHT-startY*2;
+        int spaceBeetwenSCol = (widthSPlace-Constants.SkinsDetails.SKIN_WIDTH*4)/4+Constants.SkinsDetails.SKIN_WIDTH;
+        int spaceBeetwenSRow = (heightSPlace-Constants.SkinsDetails.SKIN_HEIGHT*4)/4+Constants.SkinsDetails.SKIN_HEIGHT;
         skins = new ArrayList<>();
-        skins.add(new PinkstarSkin(game, (int) (50*Game.SCALE), (int) (60*Game.SCALE)));
-        skins.add(new SharkSkin(game, (int) (60*Game.SCALE), (int) (80*Game.SCALE)));
+        skins.add(new SharkSkin(game, startX + col*spaceBeetwenSCol, startY + row*spaceBeetwenSRow));col++;
+        skins.add(new PinkstarSkin(game, startX + col*spaceBeetwenSCol, startY + row*spaceBeetwenSRow));col++;
     }
 
     public SkinToBuy getSkin(int i) {
@@ -100,7 +107,9 @@ public class UI {
         buttons[OPTIONS_STATE][2] = new VolumeSlider(game, menuX + (int) (23f*Game.SCALE), (int) (228f*Game.SCALE));
         buttons[OPTIONS_STATE][3] = new HomeButton(game, menuX + (int) (75f*Game.SCALE), menuY + (int) (200f*Game.SCALE));
 
-        buttons[SHOP_STATE][0] = new HomeButton(game, menuX + (int) (77.5f*Game.SCALE), menuY + (int) (250f*Game.SCALE));
+        buttons[SHOP_STATE][0] = skins.get(0);
+        buttons[SHOP_STATE][1] = skins.get(1);
+        buttons[SHOP_STATE][2] = new HomeButton(game, menuX + (int) (77.5f*Game.SCALE), menuY + (int) (250f*Game.SCALE));
 
         buttons[PAUSE_STATE][0] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (79.5f*Game.SCALE), Type.music);
         buttons[PAUSE_STATE][1] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (112.5f*Game.SCALE), Type.sfx);
@@ -204,7 +213,9 @@ public class UI {
 
     private void drawShop() {
         drawBg();
-        drawStr("SHOP", Game.WINDOW_WIDTH/2-(int) (25*Game.SCALE), (int) (70*Game.SCALE));
+        drawStr("SHOP", Game.WINDOW_WIDTH/2-(int) (25*Game.SCALE), (int) (70*Game.SCALE), 25*Game.SCALE);
+        g.drawImage(LoadSave.GetSpriteAtlas(LoadSave.MONEY_SPRITE), Game.WINDOW_WIDTH-Constants.MoneyDetails.MONEY_WIDTH, (int) (1*Game.SCALE), Constants.MoneyDetails.MONEY_WIDTH, Constants.MoneyDetails.MONEY_HEIGHT, null);
+        drawStr(String.valueOf(game.player.budget), Game.WINDOW_WIDTH-Constants.MoneyDetails.MONEY_WIDTH-(int) (20*Game.SCALE), (int) (21.5f*Game.SCALE), 25f*Game.SCALE);
 
         for (int i = 0; i < buttons[SHOP_STATE].length; i++) {
             if (buttons[SHOP_STATE][i] != null)
@@ -217,8 +228,8 @@ public class UI {
         game.player.draw(g);
         game.eSpawner.draw(g);
         drawHealthBar();
-        drawStr("SCORE: " + game.player.score, Game.WINDOW_WIDTH/2-(int) (40*Game.SCALE), (int) (68*Game.SCALE));
-        drawStr("BUDGET: " + game.player.budget, Game.WINDOW_WIDTH/2-(int) (45*Game.SCALE), (int) (92*Game.SCALE));
+        drawStr("SCORE: " + game.player.score, Game.WINDOW_WIDTH/2-(int) (40*Game.SCALE), (int) (68*Game.SCALE), 25*Game.SCALE);
+        drawStr("BUDGET: " + game.player.budget, Game.WINDOW_WIDTH/2-(int) (45*Game.SCALE), (int) (92*Game.SCALE), 25*Game.SCALE);
     }
 
     private int hBarX = (int) (3*Game.SCALE);
@@ -239,12 +250,16 @@ public class UI {
         g.fillRect(hBarX + (int) (33*Game.SCALE), hBarY + (int) (25.5f*Game.SCALE), toFill, (int) (1.5f*Game.SCALE));
     }
 
-    private void drawStr(String str, int x, int y) {
-        g.setFont(font.deriveFont(25*Game.SCALE));
+    public void drawStr(String str, int x, int y, float fontSize) {
+        g.setFont(font.deriveFont(fontSize));
         g.setColor(Color.BLACK);
         g.drawString(str, x, y);
         g.setColor(Color.WHITE);
         g.drawString(str, x, y+4);
+    }
+
+    public void setFontSize(float size) {
+        g.setFont(font.deriveFont(size));
     }
 
     private void drawPause() {
@@ -262,8 +277,8 @@ public class UI {
     private void drawDeathScr() {
         darkenScreen();
         g.drawImage(deathScreenImg, deathSX, deathSY, Constants.DeathScreenDetails.DEATH_S_WIDTH, Constants.DeathScreenDetails.DEATH_S_HEIGHT, null);
-        drawStr("SCORE: " + game.player.score, deathSX+(int) (55*Game.SCALE), deathSY/2-(int) (5*Game.SCALE));
-        drawStr("BEST SCORE: " + game.player.bestScore, deathSX+(int) (24*Game.SCALE), deathSY/2+(int) (25*Game.SCALE));
+        drawStr("SCORE: " + game.player.score, deathSX+(int) (55*Game.SCALE), deathSY/2-(int) (5*Game.SCALE), 25*Game.SCALE);
+        drawStr("BEST SCORE: " + game.player.bestScore, deathSX+(int) (24*Game.SCALE), deathSY/2+(int) (25*Game.SCALE), 25*Game.SCALE);
 
         for (int i = 0; i < buttons[DEATH_S_STATE].length; i++) {
             if (buttons[DEATH_S_STATE][i] != null)

@@ -10,8 +10,16 @@ import static Utilz.Constants.SkinsDetails.*;
 public class SharkSkin extends SkinToBuy {
 
     public SharkSkin(Game game, int xPos, int yPos) {
-        super(game, xPos, yPos, SKIN_WIDTH, SKIN_HEIGHT, 0);
-        name = "Shark";
+        super(game, "Shark", xPos, yPos, SKIN_WIDTH, SKIN_HEIGHT, 0);
+
+        price = 50;
+    }
+
+    protected void initCollSpaces() {
+        collLeftSpace = (int) (7*Game.SCALE);
+        collRightSpace = (int) (5*Game.SCALE);
+        collTopSpace = (int) (5*Game.SCALE);
+        collBottomSpace = (int) (3*Game.SCALE);
     }
 
     protected void loadImgs() {

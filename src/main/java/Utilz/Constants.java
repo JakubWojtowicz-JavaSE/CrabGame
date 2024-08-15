@@ -92,7 +92,7 @@ public class Constants {
         public static final int SKIN_DEFAULT_WIDTH = 34;
         public static final int SKIN_DEFAULT_HEIGHT = 30;
 
-        public static final int SKIN_WIDTH = (int) (SKIN_DEFAULT_WIDTH*36.244f * Game.SCALE);
+        public static final int SKIN_WIDTH = (int) (SKIN_DEFAULT_WIDTH*1.066f * Game.SCALE);
         public static final int SKIN_HEIGHT = (int) (SKIN_DEFAULT_HEIGHT*1.066f * Game.SCALE);//crabby size
 
         public static final int SPRITES_IN_ROW = 5;
