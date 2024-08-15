@@ -13,10 +13,7 @@ import ui.navigate.RestartButton;
 import ui.navigate.ResumeButton;
 import ui.options.SoundButton;
 import ui.options.VolumeSlider;
-import ui.shop.PinkstarSkin;
-import ui.shop.SharkSkin;
-import ui.shop.ShopButton;
-import ui.shop.SkinToBuy;
+import ui.shop.*;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -88,6 +85,16 @@ public class UI {
         skins = new ArrayList<>();
         skins.add(new SharkSkin(game, startX + col*spaceBeetwenSCol, startY + row*spaceBeetwenSRow));col++;
         skins.add(new PinkstarSkin(game, startX + col*spaceBeetwenSCol, startY + row*spaceBeetwenSRow));col++;
+
+        setIsUnlockedInSkins();
+    }
+
+    private void setIsUnlockedInSkins() {
+        if (game.data.unlockSkins != null) {
+            for (int i : game.data.unlockSkins) {
+                skins.get(i).unlockSkin();
+            }
+        }
     }
 
     public SkinToBuy getSkin(int i) {
@@ -109,7 +116,8 @@ public class UI {
 
         buttons[SHOP_STATE][0] = skins.get(0);
         buttons[SHOP_STATE][1] = skins.get(1);
-        buttons[SHOP_STATE][2] = new HomeButton(game, menuX + (int) (77.5f*Game.SCALE), menuY + (int) (250f*Game.SCALE));
+        buttons[SHOP_STATE][2] = new DefaultSkin(game, menuX + (int) (20f*Game.SCALE), menuY + (int) (250f*Game.SCALE));
+        buttons[SHOP_STATE][3] = new HomeButton(game, menuX + (int) (77.5f*Game.SCALE), menuY + (int) (250f*Game.SCALE));
 
         buttons[PAUSE_STATE][0] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (79.5f*Game.SCALE), Type.music);
         buttons[PAUSE_STATE][1] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (112.5f*Game.SCALE), Type.sfx);
@@ -215,7 +223,7 @@ public class UI {
         drawBg();
         drawStr("SHOP", Game.WINDOW_WIDTH/2-(int) (25*Game.SCALE), (int) (70*Game.SCALE), 25*Game.SCALE);
         g.drawImage(LoadSave.GetSpriteAtlas(LoadSave.MONEY_SPRITE), Game.WINDOW_WIDTH-Constants.MoneyDetails.MONEY_WIDTH, (int) (1*Game.SCALE), Constants.MoneyDetails.MONEY_WIDTH, Constants.MoneyDetails.MONEY_HEIGHT, null);
-        drawStr(String.valueOf(game.player.budget), Game.WINDOW_WIDTH-Constants.MoneyDetails.MONEY_WIDTH-(int) (20*Game.SCALE), (int) (21.5f*Game.SCALE), 25f*Game.SCALE);
+        drawStr(String.valueOf(game.player.budget), Game.WINDOW_WIDTH-Constants.MoneyDetails.MONEY_WIDTH-(int) (40f*Game.SCALE), (int) (21.5f*Game.SCALE), 25f*Game.SCALE);
 
         for (int i = 0; i < buttons[SHOP_STATE].length; i++) {
             if (buttons[SHOP_STATE][i] != null)

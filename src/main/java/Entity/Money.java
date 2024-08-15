@@ -23,7 +23,7 @@ public class Money extends Entity {
 
     protected void contactPlayer() {
         if (dieCounter == 0)
-            game.player.increaseBudget(1);
+            game.player.increaseBudget(20);
         dieCounter++;
         if (dieCounter >= 35) {
             game.eSpawner.objects.remove(this);

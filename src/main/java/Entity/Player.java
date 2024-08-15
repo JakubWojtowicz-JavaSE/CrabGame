@@ -164,7 +164,7 @@ public class Player extends Entity {
         drawColliders(g);
     }
 
-    public void reset() {
+    public void reset(boolean defSkin) {
         score = 0;
         bestScore = game.data.bestScore;
 
@@ -175,10 +175,12 @@ public class Player extends Entity {
         speed = 2.5f;
         maxSpeed = speed;
         posData.changeData(Game.WINDOW_WIDTH/2-Game.TILE_SIZE/2, 10*Game.TILE_SIZE, CRABBY_WIDTH, CRABBY_HEIGHT, collLeftSpace, collRightSpace, collTopSpace, collBottomSpace);
+        loadImgs();
         animIndex = 0;
         animCounter = 0;
         isAttacking = false;
 
-        loadSkin(skinIndex);
+        if (!defSkin)
+            loadSkin(skinIndex);
     }
 }

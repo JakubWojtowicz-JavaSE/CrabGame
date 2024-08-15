@@ -37,6 +37,7 @@ public abstract class SkinToBuy extends UrmButton {
         else if (game.player.budget >= price) {
             game.player.budget -= price;
             isUnlocked = true;
+            game.data.unlockSkins.add(game.ui.skins.indexOf(this));
             System.out.println("Congratulations! You buy this skin!");
         } else {
             System.out.println("You don 't have enought money!");
@@ -63,6 +64,10 @@ public abstract class SkinToBuy extends UrmButton {
             animCounter = 0;
             animIndex = 0;
         }
+    }
+
+    public void unlockSkin() {
+        isUnlocked = true;
     }
 
     public void draw(Graphics g) {

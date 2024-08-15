@@ -61,7 +61,7 @@ public class Game extends JPanel implements Runnable {
 
     public void reset() {
         eSpawner.setDefVar();
-        player.reset();
+        player.reset(false);
     }
 
     public void startGameThread() {
