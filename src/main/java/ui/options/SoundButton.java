@@ -1,8 +1,9 @@
-package ui;
+package ui.options;
 
 import Entity.Type;
 import Main.Game;
 import Utilz.LoadSave;
+import ui.UrmButton;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

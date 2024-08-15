@@ -1,10 +1,10 @@
-package ui;
+package ui.menu;
 
 import Main.Game;
 import Utilz.LoadSave;
+import ui.UrmButton;
 
-import static Utilz.Constants.MenuButtonsDetails.BUTTON_HEIGHT;
-import static Utilz.Constants.MenuButtonsDetails.BUTTON_WIDTH;
+import static Utilz.Constants.MenuButtonsDetails.*;
 
 public class QuitButton extends UrmButton {
 

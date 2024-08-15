@@ -26,6 +26,44 @@ public class Constants {
                     }
                 }
             }
+            case "Pinkstar" -> {
+                switch (state) {
+                    case Entity.IDLE -> {
+                        return SkinsDetails.SPRITES_IN_IDLE;
+                    }
+                    case Entity.RUNNING -> {
+                        return SkinsDetails.SPRITES_IN_RUNNING;
+                    }
+                    case Entity.ATTACK -> {
+                        return SkinsDetails.SPRITES_IN_ATTACK;
+                    }
+                    case Entity.HIT -> {
+                        return SkinsDetails.SPRITES_IN_HIT;
+                    }
+                    case Entity.DEAD -> {
+                        return SkinsDetails.SPRITES_IN_DEAD;
+                    }
+                }
+            }
+            case "Shark" -> {
+                switch (state) {
+                    case Entity.IDLE -> {
+                        return SkinsDetails.SPRITES_IN_IDLE;
+                    }
+                    case Entity.RUNNING -> {
+                        return SkinsDetails.SPRITES_IN_RUNNING;
+                    }
+                    case Entity.ATTACK -> {
+                        return SkinsDetails.SPRITES_IN_ATTACK;
+                    }
+                    case Entity.HIT -> {
+                        return SkinsDetails.SPRITES_IN_HIT;
+                    }
+                    case Entity.DEAD -> {
+                        return SkinsDetails.SPRITES_IN_DEAD;
+                    }
+                }
+            }
             case "Ball" -> {return 1;}
             case "Potion" -> {return PotionDetails.SPRITES_IN_COL;}
             case "Money" -> {return 1;}
@@ -46,6 +84,23 @@ public class Constants {
         public static final int SPRITES_IN_IDLE = 9;
         public static final int SPRITES_IN_RUNNING = 6;
         public static final int SPRITES_IN_ATTACK = 7;
+        public static final int SPRITES_IN_HIT = 4;
+        public static final int SPRITES_IN_DEAD = 5;
+    }
+
+    public static class SkinsDetails {
+        public static final int SKIN_DEFAULT_WIDTH = 34;
+        public static final int SKIN_DEFAULT_HEIGHT = 30;
+
+        public static final int SKIN_WIDTH = (int) (SKIN_DEFAULT_WIDTH*36.244f * Game.SCALE);
+        public static final int SKIN_HEIGHT = (int) (SKIN_DEFAULT_HEIGHT*1.066f * Game.SCALE);//crabby size
+
+        public static final int SPRITES_IN_ROW = 5;
+        public static final int SPRITES_IN_COL = 8;
+
+        public static final int SPRITES_IN_IDLE = 8;
+        public static final int SPRITES_IN_RUNNING = 6;
+        public static final int SPRITES_IN_ATTACK = 8;
         public static final int SPRITES_IN_HIT = 4;
         public static final int SPRITES_IN_DEAD = 5;
     }

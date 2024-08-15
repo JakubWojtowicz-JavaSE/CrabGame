@@ -1,22 +1,22 @@
-package ui;
+package ui.navigate;
 
 import Main.Game;
 import Main.GameStates;
 import Utilz.LoadSave;
+import ui.UrmButton;
 
 import java.awt.image.BufferedImage;
 
 import static Utilz.Constants.OptionsButtonsDetails.*;
 
-public class HomeButton extends UrmButton {
+public class ResumeButton extends UrmButton {
 
-    public HomeButton(Game game, int xPos, int yPos) {
-        super(game, xPos, yPos, NAVIGATE_BUTTON_WIDTH, NAVIGATE_BUTTON_HEIGHT, 2);
+    public ResumeButton(Game game, int xPos, int yPos) {
+        super(game, xPos, yPos, NAVIGATE_BUTTON_WIDTH, NAVIGATE_BUTTON_HEIGHT, 0);
     }
 
     protected void buttonFun() {
-        game.reset();
-        game.gameState = GameStates.menu;
+        game.gameState = GameStates.playing;
     }
 
     protected void loadImgs() {

@@ -5,11 +5,24 @@ import Main.Game;
 import Main.GameStates;
 import Utilz.Constants;
 import Utilz.LoadSave;
+import ui.menu.OptionsButton;
+import ui.menu.PlayButton;
+import ui.menu.QuitButton;
+import ui.navigate.HomeButton;
+import ui.navigate.RestartButton;
+import ui.navigate.ResumeButton;
+import ui.options.SoundButton;
+import ui.options.VolumeSlider;
+import ui.shop.PinkstarSkin;
+import ui.shop.SharkSkin;
+import ui.shop.ShopButton;
+import ui.shop.SkinToBuy;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class UI {
 
@@ -19,8 +32,9 @@ public class UI {
     private UrmButton[][] buttons;
     private int MENU_STATE = 0;
     private int OPTIONS_STATE = 1;
-    private int PAUSE_STATE = 2;
-    private int DEATH_S_STATE = 3;
+    private int SHOP_STATE = 2;
+    private int PAUSE_STATE = 3;
+    private int DEATH_S_STATE = 4;
     private Image backgroundImg;
     private Image optionsImg;
     private Image menuImg;
@@ -28,12 +42,18 @@ public class UI {
     private Image pauseMenuImg;
     private Image deathScreenImg;
 
+
+    // player skins
+    public ArrayList<SkinToBuy> skins;
+
     public UI(Game game) {
         this.game = game;
 
         setFonts();
         setImgs();
         createButtons();
+
+        setSkins();
     }
 
     private void setFonts() {
@@ -57,17 +77,30 @@ public class UI {
         deathScreenImg = LoadSave.GetSpriteAtlas(LoadSave.DEATH_SCREEN);
     }
 
+    private void setSkins() {
+        skins = new ArrayList<>();
+        skins.add(new PinkstarSkin(game, (int) (50*Game.SCALE), (int) (60*Game.SCALE)));
+        skins.add(new SharkSkin(game, (int) (60*Game.SCALE), (int) (80*Game.SCALE)));
+    }
+
+    public SkinToBuy getSkin(int i) {
+        return skins.get(i);
+    }
+
     private void createButtons() {
-        buttons = new UrmButton[4][6];
+        buttons = new UrmButton[5][6];
 
         buttons[MENU_STATE][0] = new PlayButton(game, menuX + (int) (36f*Game.SCALE), menuY + (int) (75*Game.SCALE));
         buttons[MENU_STATE][1] = new OptionsButton(game, menuX + (int) (36f*Game.SCALE), menuY + Constants.MenuButtonsDetails.BUTTON_HEIGHT + (int) (85*Game.SCALE));
         buttons[MENU_STATE][2] = new QuitButton(game, menuX + (int) (36f*Game.SCALE), menuY + 2* Constants.MenuButtonsDetails.BUTTON_HEIGHT + (int) (95*Game.SCALE));
+        buttons[MENU_STATE][3] = new ShopButton(game, (int) (225f*Game.SCALE), (int) (300f*Game.SCALE));
 
         buttons[OPTIONS_STATE][0] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (72f*Game.SCALE), Type.music);
         buttons[OPTIONS_STATE][1] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (105f*Game.SCALE), Type.sfx);
         buttons[OPTIONS_STATE][2] = new VolumeSlider(game, menuX + (int) (23f*Game.SCALE), (int) (228f*Game.SCALE));
         buttons[OPTIONS_STATE][3] = new HomeButton(game, menuX + (int) (75f*Game.SCALE), menuY + (int) (200f*Game.SCALE));
+
+        buttons[SHOP_STATE][0] = new HomeButton(game, menuX + (int) (77.5f*Game.SCALE), menuY + (int) (250f*Game.SCALE));
 
         buttons[PAUSE_STATE][0] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (79.5f*Game.SCALE), Type.music);
         buttons[PAUSE_STATE][1] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (112.5f*Game.SCALE), Type.sfx);
@@ -90,6 +123,11 @@ public class UI {
             for (int i = 0; i < buttons[OPTIONS_STATE].length; i++) {
                 if (buttons[OPTIONS_STATE][i] != null)
                     buttons[OPTIONS_STATE][i].update();
+            }
+        } else if (game.gameState == GameStates.shop) {
+            for (int i = 0; i < buttons[SHOP_STATE].length; i++) {
+                if (buttons[SHOP_STATE][i] != null)
+                    buttons[SHOP_STATE][i].update();
             }
         } else if (game.gameState == GameStates.pause) {
             for (int i = 0; i < buttons[PAUSE_STATE].length; i++) {
@@ -124,6 +162,8 @@ public class UI {
             drawMenu();
         } else if (game.gameState == GameStates.options) {
             drawOptions();
+        } else if (game.gameState == GameStates.shop) {
+            drawShop();
         } else if (game.gameState == GameStates.playing) {
             drawPlaying();
         } else if (game.gameState == GameStates.pause) {
@@ -162,13 +202,23 @@ public class UI {
         }
     }
 
+    private void drawShop() {
+        drawBg();
+        drawStr("SHOP", Game.WINDOW_WIDTH/2-(int) (25*Game.SCALE), (int) (70*Game.SCALE));
+
+        for (int i = 0; i < buttons[SHOP_STATE].length; i++) {
+            if (buttons[SHOP_STATE][i] != null)
+                buttons[SHOP_STATE][i].draw(g);
+        }
+    }
+
     private void drawPlaying() {
         drawBg();
         game.player.draw(g);
         game.eSpawner.draw(g);
         drawHealthBar();
-        drawStr("SCORE: " + game.player.score, Game.WINDOW_WIDTH/2-(int) (40*Game.SCALE), (int) (70*Game.SCALE));
-        drawStr("BUDGET: " + game.player.budget, Game.WINDOW_WIDTH/2-(int) (40*Game.SCALE), (int) (90*Game.SCALE));
+        drawStr("SCORE: " + game.player.score, Game.WINDOW_WIDTH/2-(int) (40*Game.SCALE), (int) (68*Game.SCALE));
+        drawStr("BUDGET: " + game.player.budget, Game.WINDOW_WIDTH/2-(int) (45*Game.SCALE), (int) (92*Game.SCALE));
     }
 
     private int hBarX = (int) (3*Game.SCALE);
@@ -238,7 +288,12 @@ public class UI {
                 if (buttons[OPTIONS_STATE][i] != null)
                     buttons[OPTIONS_STATE][i].mousePressed(e);
             }
-        }  else if (game.gameState == GameStates.pause) {
+        } else if (game.gameState == GameStates.shop) {
+            for (int i = 0; i < buttons[SHOP_STATE].length; i++) {
+                if (buttons[SHOP_STATE][i] != null)
+                    buttons[SHOP_STATE][i].mousePressed(e);
+            }
+        } else if (game.gameState == GameStates.pause) {
             for (int i = 0; i < buttons[PAUSE_STATE].length; i++) {
                 if (buttons[PAUSE_STATE][i] != null)
                     buttons[PAUSE_STATE][i].mousePressed(e);
@@ -262,7 +317,12 @@ public class UI {
                 if (buttons[OPTIONS_STATE][i] != null)
                     buttons[OPTIONS_STATE][i].mouseRelased(e);
             }
-        }  else if (game.gameState == GameStates.pause) {
+        } else if (game.gameState == GameStates.shop) {
+            for (int i = 0; i < buttons[SHOP_STATE].length; i++) {
+                if (buttons[SHOP_STATE][i] != null)
+                    buttons[SHOP_STATE][i].mouseRelased(e);
+            }
+        } else if (game.gameState == GameStates.pause) {
             for (int i = 0; i < buttons[PAUSE_STATE].length; i++) {
                 if (buttons[PAUSE_STATE][i] != null)
                     buttons[PAUSE_STATE][i].mouseRelased(e);
@@ -300,7 +360,12 @@ public class UI {
                 if (buttons[OPTIONS_STATE][i] != null)
                     buttons[OPTIONS_STATE][i].mouseMoved(e);
             }
-        }  else if (game.gameState == GameStates.pause) {
+        } else if (game.gameState == GameStates.shop) {
+            for (int i = 0; i < buttons[SHOP_STATE].length; i++) {
+                if (buttons[SHOP_STATE][i] != null)
+                    buttons[SHOP_STATE][i].mouseMoved(e);
+            }
+        } else if (game.gameState == GameStates.pause) {
             for (int i = 0; i < buttons[PAUSE_STATE].length; i++) {
                 if (buttons[PAUSE_STATE][i] != null)
                     buttons[PAUSE_STATE][i].mouseMoved(e);

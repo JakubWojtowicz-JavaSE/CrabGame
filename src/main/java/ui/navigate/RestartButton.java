@@ -1,8 +1,9 @@
-package ui;
+package ui.navigate;
 
 import Main.Game;
 import Main.GameStates;
 import Utilz.LoadSave;
+import ui.UrmButton;
 
 import java.awt.image.BufferedImage;
 
@@ -15,8 +16,7 @@ public class RestartButton extends UrmButton {
         }
 
         protected void buttonFun() {
-            if (game.player.chcekChanges())
-                LoadSave.SaveData(game.data);
+            game.player.chcekChanges();
             game.reset();
             game.gameState = GameStates.playing;
         }

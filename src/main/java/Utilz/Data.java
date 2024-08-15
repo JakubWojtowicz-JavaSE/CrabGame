@@ -4,6 +4,6 @@ import java.io.Serializable;
 
 public class Data implements Serializable {
 
-    public int bestScore, budget, volume;
+    public int skinNum, bestScore, budget, volume;
     public boolean isMusicOn, isSFXOn;
 }

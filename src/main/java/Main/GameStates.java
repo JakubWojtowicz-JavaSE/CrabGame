@@ -1,5 +1,5 @@
 package Main;
 
 public enum GameStates {
-    menu, options, playing, pause, deathScreen
+    menu, options, shop, playing, pause, deathScreen
 }

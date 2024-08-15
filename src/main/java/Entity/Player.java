@@ -4,6 +4,9 @@ import Main.Game;
 import Main.GameStates;
 import Utilz.Data;
 import Utilz.LoadSave;
+import ui.shop.PinkstarSkin;
+import ui.shop.SharkSkin;
+import ui.shop.SkinToBuy;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,6 +16,9 @@ import static Utilz.Constants.CrabbyDetails.*;
 public class Player extends Entity {
 
     public int score, bestScore, budget;
+    private int skinIndex;
+
+    private Direction imgDir; // in which direction should the graphic be drawn
 
     public Player(Game game, int xPos) {
         super(game, Type.player,  xPos, 10*Game.TILE_SIZE, CRABBY_WIDTH, CRABBY_HEIGHT, 2.5f, 4, IDLE);
@@ -21,6 +27,25 @@ public class Player extends Entity {
         score = 0;
         bestScore = game.data.bestScore;
         budget = game.data.budget;
+        skinIndex = game.data.skinNum;
+
+        loadSkin(skinIndex);
+    }
+
+    private void loadSkin(int index) {
+        changeSkin(game.ui.getSkin(index));
+    }
+
+    public void changeSkin(SkinToBuy skin) {
+        name = skin.name;
+        posData.setWidth(skin.width);
+        posData.setWidth(skin.height);
+        collLeftSpace = skin.collLeftSpace;
+        collRightSpace = skin.collRightSpace;
+        collTopSpace = skin.collTopSpace;
+        collBottomSpace = skin.collBottomSpace;
+        posData.setCollSpaces(collLeftSpace, collRightSpace, collTopSpace, collBottomSpace);
+        imgs = skin.imgs;
     }
 
     protected void initCollSpaces() {
@@ -50,9 +75,11 @@ public class Player extends Entity {
                 state = ATTACK;
             } else {
                 if (game.listeners.leftPressed) {
+                    imgDir = Direction.left;
                     dir = Direction.left;
                     state = RUNNING;
                 } else if (game.listeners.rightPressed) {
+                    imgDir = Direction.right;
                     dir = Direction.right;
                     state = RUNNING;
                 } else {
@@ -99,8 +126,7 @@ public class Player extends Entity {
         state = HIT;
         health -= damage;
         if (health <= 0) {
-            if (chcekChanges())
-                LoadSave.SaveData(game.data);
+            chcekChanges();
             game.gameState = GameStates.deathScreen;
         }
     }
@@ -111,7 +137,7 @@ public class Player extends Entity {
             game.data.bestScore = score;
             toSave = true;
         }
-        if (budget > game.data.budget) {
+        if (budget != game.data.budget) {
             game.data.budget = budget;
             toSave = true;
         }
@@ -129,7 +155,7 @@ public class Player extends Entity {
     public void draw(Graphics g) {
         int x = posData.getXPos();
         int width = posData.getWidth();
-        if (dir == Direction.right) {
+        if (imgDir == Direction.right) {
             x += width;
             width = -width;
         }
@@ -151,5 +177,7 @@ public class Player extends Entity {
         animIndex = 0;
         animCounter = 0;
         isAttacking = false;
+
+        loadSkin(skinIndex);
     }
 }

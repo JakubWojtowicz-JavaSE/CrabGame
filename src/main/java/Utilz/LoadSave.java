@@ -12,6 +12,7 @@ public class LoadSave {
     public static final String OPTIONS_IMG = "ui/options_background.png";
     public static final String SOUND_B_IMG = "ui/buttons/sound_button.png";
     public static final String VOLUME_B_IMG = "ui/buttons/volume_buttons.png";
+    public static final String SHOP_ICON_IMG = "ui/buttons/shop_icon.png";
     public static final String HEALTH_BAR_IMG = "ui/health_power_bar.png";
     public static final String PAUSE_MENU = "ui/pause_menu.png";
     public static final String DEATH_SCREEN = "ui/death_screen.png";
@@ -20,6 +21,10 @@ public class LoadSave {
     public static final String BALL_SPRITE = "entitySprites/ball.png";
     public static final String POTION_SPRITE = "entitySprites/potions_sprites.png";
     public static final String MONEY_SPRITE = "entitySprites/money.png";
+
+    // skins
+    public static final String PINKSTAR_SKIN_ATLAS = "entitySprites/pinkstar_atlas.png";
+    public static final String SHARK_SKIN_ATLAS = "entitySprites/shark_atlas.png";
 
     public static final String path = "data.crb";
 
@@ -40,6 +45,7 @@ public class LoadSave {
             oos.writeObject(data);
 
             oos.close();
+            System.out.println("Data saved");
         } catch (IOException e) {
             e.printStackTrace();
         }

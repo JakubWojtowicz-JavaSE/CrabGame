@@ -1,7 +1,8 @@
-package ui;
+package ui.menu;
 
 import Main.Game;
 import Main.GameStates;
+import ui.UrmButton;
 
 import static Utilz.Constants.MenuButtonsDetails.*;
 
