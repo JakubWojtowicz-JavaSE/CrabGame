@@ -58,7 +58,7 @@ public class UI {
     }
 
     private void createButtons() {
-        buttons = new UrmButton[4][4];
+        buttons = new UrmButton[4][6];
 
         buttons[MENU_STATE][0] = new PlayButton(game, menuX + (int) (36f*Game.SCALE), menuY + (int) (75*Game.SCALE));
         buttons[MENU_STATE][1] = new OptionsButton(game, menuX + (int) (36f*Game.SCALE), menuY + Constants.MenuButtonsDetails.BUTTON_HEIGHT + (int) (85*Game.SCALE));
@@ -72,10 +72,12 @@ public class UI {
         buttons[PAUSE_STATE][0] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (79.5f*Game.SCALE), Type.music);
         buttons[PAUSE_STATE][1] = new SoundButton(game, menuX + (int) (119f*Game.SCALE), menuY + (int) (112.5f*Game.SCALE), Type.sfx);
         buttons[PAUSE_STATE][2] = new VolumeSlider(game, menuX + (int) (23f*Game.SCALE), (int) (235.5f*Game.SCALE));
-        buttons[PAUSE_STATE][3] = new HomeButton(game, menuX + (int) (75f*Game.SCALE), menuY + (int) (212f*Game.SCALE));
+        buttons[PAUSE_STATE][3] = new ResumeButton(game, menuX + (int) (25f*Game.SCALE), menuY + (int) (212f*Game.SCALE));
+        buttons[PAUSE_STATE][4] = new RestartButton(game, menuX + (int) (75f*Game.SCALE), menuY + (int) (212f*Game.SCALE));
+        buttons[PAUSE_STATE][5] = new HomeButton(game, menuX + (int) (125f*Game.SCALE), menuY + (int) (212f*Game.SCALE));
 
         buttons[DEATH_S_STATE][0] = new HomeButton(game,  deathSX + (int) (31f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
-        buttons[DEATH_S_STATE][1] = new RetryButton(game,  deathSX + (int) (120f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
+        buttons[DEATH_S_STATE][1] = new RestartButton(game,  deathSX + (int) (120f * Game.SCALE), deathSY + (int) (105f*Game.SCALE));
     }
 
     public void update() {
@@ -165,7 +167,8 @@ public class UI {
         game.player.draw(g);
         game.eSpawner.draw(g);
         drawHealthBar();
-        drawStr("SCORE: " + game.player.score, Game.WINDOW_WIDTH/2-(int) (40*Game.SCALE), (int) (80*Game.SCALE));
+        drawStr("SCORE: " + game.player.score, Game.WINDOW_WIDTH/2-(int) (40*Game.SCALE), (int) (70*Game.SCALE));
+        drawStr("BUDGET: " + game.player.budget, Game.WINDOW_WIDTH/2-(int) (40*Game.SCALE), (int) (90*Game.SCALE));
     }
 
     private int hBarX = (int) (3*Game.SCALE);
@@ -281,7 +284,7 @@ public class UI {
         } else if (game.gameState == GameStates.pause) {
             for (int i = 0; i < buttons[PAUSE_STATE].length; i++) {
                 if (buttons[PAUSE_STATE][i] != null)
-                    buttons[PAUSE_STATE][i].mouseRelased(e);
+                    buttons[PAUSE_STATE][i].mouseDragged(e);
             }
         }
     }

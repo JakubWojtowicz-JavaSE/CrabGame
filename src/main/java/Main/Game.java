@@ -69,6 +69,11 @@ public class Game extends JPanel implements Runnable {
         thread.start();
     }
 
+    public void afterWinClose() {
+        player.chcekChanges();
+        LoadSave.SaveData(data);
+    }
+
     @Override
     public void run() {
         double timeBeetwenUpdate = 1000000000/UPS;

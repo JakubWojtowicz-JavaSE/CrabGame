@@ -28,5 +28,12 @@ public class Main {
         game.setFocusable(true);
         game.requestFocus();
         game.startGameThread();
+
+        window.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                game.afterWinClose();
+            }
+        });
     }
 }

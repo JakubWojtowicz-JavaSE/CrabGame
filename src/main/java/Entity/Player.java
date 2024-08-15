@@ -96,22 +96,26 @@ public class Player extends Entity {
     }
 
     public void giveDamage(int damage) {
-        boolean toSave = false;
         state = HIT;
         health -= damage;
         if (health <= 0) {
-            if (score > game.data.bestScore) {
-                game.data.bestScore = score;
-                toSave = true;
-            }
-            if (budget > game.data.budget) {
-                game.data.budget = budget;
-                toSave = true;
-            }
-            if (toSave)
+            if (chcekChanges())
                 LoadSave.SaveData(game.data);
             game.gameState = GameStates.deathScreen;
         }
+    }
+
+    public boolean chcekChanges() {
+        boolean toSave = false;
+        if (score > game.data.bestScore) {
+            game.data.bestScore = score;
+            toSave = true;
+        }
+        if (budget > game.data.budget) {
+            game.data.budget = budget;
+            toSave = true;
+        }
+        return toSave;
     }
 
     public void increaseBudget(int i) {

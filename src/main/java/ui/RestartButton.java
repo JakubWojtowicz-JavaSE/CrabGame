@@ -8,13 +8,15 @@ import java.awt.image.BufferedImage;
 
 import static Utilz.Constants.OptionsButtonsDetails.*;
 
-public class RetryButton extends UrmButton {
+public class RestartButton extends UrmButton {
 
-        public RetryButton(Game game, int xPos, int yPos) {
+        public RestartButton(Game game, int xPos, int yPos) {
             super(game, xPos, yPos, NAVIGATE_BUTTON_WIDTH, NAVIGATE_BUTTON_HEIGHT, 1);
         }
 
         protected void buttonFun() {
+            if (game.player.chcekChanges())
+                LoadSave.SaveData(game.data);
             game.reset();
             game.gameState = GameStates.playing;
         }

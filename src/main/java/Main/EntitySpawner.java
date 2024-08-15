@@ -67,11 +67,13 @@ public class EntitySpawner {
     private void genObjects() {
         oGenCounter++;
         if (oGenCounter >= oGenSpace) {
-            if (game.random.nextInt(100) > 75)
+            int i = game.random.nextInt(100);
+            if (i <= 25)
                 objects.add(new Potion(game, Type.potion_g, game.random.nextInt(Game.WINDOW_WIDTH-Constants.PotionDetails.POTION_WIDTH), defYPos, 2.6f));
+            else if (i > 25 && i <= 65)
+                objects.add(new Money(game, game.random.nextInt(Game.WINDOW_WIDTH-Constants.PotionDetails.POTION_WIDTH), defYPos, 2.5f));
             else
                 objects.add(new Potion(game, Type.potion_b, game.random.nextInt(Game.WINDOW_WIDTH-Constants.PotionDetails.POTION_WIDTH), defYPos, 2.5f));
-            objects.add(new Money(game, game.random.nextInt(Game.WINDOW_WIDTH-Constants.PotionDetails.POTION_WIDTH), defYPos, 2.5f));
             oGenCounter = 0;
         }
     }
