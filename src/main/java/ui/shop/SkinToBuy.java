@@ -32,9 +32,10 @@ public abstract class SkinToBuy extends UrmButton {
     }
 
     protected void buttonFun() {
-        if (isUnlocked)
+        if (isUnlocked) {
+            game.data.skinNum = game.ui.skins.indexOf(this);
             game.player.changeSkin(this);
-        else if (game.player.budget >= price) {
+        } else if (game.player.budget >= price) {
             game.player.budget -= price;
             isUnlocked = true;
             game.data.unlockSkins.add(game.ui.skins.indexOf(this));
@@ -74,6 +75,9 @@ public abstract class SkinToBuy extends UrmButton {
         g.drawImage(imgs[state][animIndex], bounds.x, bounds.y, bounds.width, bounds.height, null);
         if (!isUnlocked) {
             g.setColor(new Color(0, 0, 0, 120));
+            g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+        } else if (game.data.skinNum == game.ui.skins.indexOf(this)) {
+            g.setColor(new Color(25, 25, 255, 120));
             g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
         }
 

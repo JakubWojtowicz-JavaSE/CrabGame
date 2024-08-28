@@ -13,6 +13,7 @@ import static Utilz.Constants.MenuButtonsDetails.*;
         }
 
         protected void buttonFun() {
+            game.player.reset(false);
             game.ui.resetButtons();
             game.gameState = GameStates.playing;
         }

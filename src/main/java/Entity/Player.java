@@ -2,6 +2,7 @@ package Entity;
 
 import Main.Game;
 import Main.GameStates;
+import Utilz.Constants;
 import Utilz.Data;
 import Utilz.LoadSave;
 import ui.shop.PinkstarSkin;
@@ -15,6 +16,7 @@ import static Utilz.Constants.CrabbyDetails.*;
 
 public class Player extends Entity {
 
+    private boolean isDead;
     public int score, bestScore, budget;
     private int skinIndex;
 
@@ -29,24 +31,22 @@ public class Player extends Entity {
         budget = game.data.budget;
         skinIndex = game.data.skinNum;
 
-        if (skinIndex > 0) // -1 is Crabby, I wanted to be 0, but skins list has beggining from 0 (I don 't want to give Crabby to that list)
-            loadSkin(skinIndex);
+        loadSkin(skinIndex);
     }
 
     private void loadSkin(int index) {
-        changeSkin(game.ui.getSkin(index));
+        if (index > -1) // -1 is Crabby, I wanted to be 0, but skins list has beggining from 0 (I don 't want to give Crabby to that list)
+            changeSkin(game.ui.getSkin(index));
     }
 
     public void changeSkin(SkinToBuy skin) {
         name = skin.name;
         posData.setWidth(skin.width);
-        posData.setWidth(skin.height);
-        collLeftSpace = skin.collLeftSpace;
-        collRightSpace = skin.collRightSpace;
-        collTopSpace = skin.collTopSpace;
-        collBottomSpace = skin.collBottomSpace;
-        posData.setCollSpaces(collLeftSpace, collRightSpace, collTopSpace, collBottomSpace);
+        posData.setHeight(skin.height);
+        posData.setCollSpaces(skin.collLeftSpace, skin.collRightSpace, skin.collTopSpace, skin.collBottomSpace);
         imgs = skin.imgs;
+
+        skinIndex = game.ui.skins.indexOf(skin);
     }
 
     protected void initCollSpaces() {
@@ -70,8 +70,12 @@ public class Player extends Entity {
         int x = posData.getColX();
         int width = posData.getColWidth();
 
-        if (!game.collisionCh.checkEnemy(this)) {
-
+        if (checkIsDead()) {
+            if (dir == Direction.left)
+                imgDir = Direction.right;
+            else if (dir == Direction.right)
+                imgDir = Direction.left;
+        } else if (!game.collisionCh.checkEnemy(this)) {
             if (isAttacking) {
                 state = ATTACK;
             } else {
@@ -127,9 +131,20 @@ public class Player extends Entity {
         state = HIT;
         health -= damage;
         if (health <= 0) {
+            animIndex = 0;
+            isDead = true;
             chcekChanges();
-            game.gameState = GameStates.deathScreen;
         }
+    }
+
+    private boolean checkIsDead() {
+        if (isDead) {
+            state = DEAD;
+            if (animIndex >= Constants.GetHowMSprInRow(name, state)-1) {
+                game.gameState = GameStates.deathScreen;
+            }
+        }
+        return isDead;
     }
 
     public boolean chcekChanges() {
@@ -149,10 +164,6 @@ public class Player extends Entity {
         budget += i;
     }
 
-    public void updateBestScore() {
-        bestScore = game.data.bestScore;
-    }
-
     public void draw(Graphics g) {
         int x = posData.getXPos();
         int width = posData.getWidth();
@@ -167,6 +178,7 @@ public class Player extends Entity {
     public void reset(boolean defSkin) {
         score = 0;
         bestScore = game.data.bestScore;
+        isDead = false;
 
         dir = Direction.idle;
         state = IDLE;
@@ -182,5 +194,9 @@ public class Player extends Entity {
 
         if (!defSkin)
             loadSkin(skinIndex);
+        else {
+            skinIndex = -1; // crabby
+            game.data.skinNum = skinIndex;
+        }
     }
 }

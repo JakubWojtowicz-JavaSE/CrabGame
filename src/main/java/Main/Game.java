@@ -125,14 +125,7 @@ public class Game extends JPanel implements Runnable {
     }
 
     public void paintComponent(Graphics g) {
-
         ui.draw(g);
-//        if (gameState == GameStates.playing) {
-//            player.draw(g);  in ui
-//
-//            eSpawner.draw(g);
-//        }
-
         g.dispose();
     }
 }
