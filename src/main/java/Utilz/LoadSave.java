@@ -1,8 +1,12 @@
 package Utilz;
 
+import Entity.Direction;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.file.FileSystem;
+import java.nio.file.Path;
 
 public class LoadSave {
 
@@ -26,7 +30,9 @@ public class LoadSave {
     public static final String PINKSTAR_SKIN_ATLAS = "entitySprites/pinkstar_atlas.png";
     public static final String SHARK_SKIN_ATLAS = "entitySprites/shark_atlas.png";
 
-    public static final String path = "data.crb";
+    public static final String path = System.getenv("APPDATA") + "/JakubWojtowicz/CrabGame";
+    private static File pathF = new File(path);
+    public static final String fileName = "/data.crb";
 
     public static BufferedImage GetSpriteAtlas(String path) {
         BufferedImage img = null;
@@ -40,7 +46,9 @@ public class LoadSave {
 
     public static void SaveData(Data data) {
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
+            if (!pathF.exists())
+                pathF.mkdirs();
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path + fileName));
 
             oos.writeObject(data);
 
@@ -54,7 +62,7 @@ public class LoadSave {
 
     public static Data LoadData() {
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path + fileName));
 
             return  (Data) ois.readObject();
         } catch (IOException e) {

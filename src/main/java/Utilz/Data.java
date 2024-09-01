@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Data implements Serializable {
 
-    public int skinNum, bestScore, budget, volume;
+    public int skinNum = -1, bestScore, budget, volume;
     public ArrayList<Integer> unlockSkins = new ArrayList<>();
     public boolean isMusicOn, isSFXOn;
 }
