@@ -18,7 +18,7 @@ public class RestartButton extends UrmButton {
         protected void buttonFun() {
             game.player.chcekChanges();
             game.reset();
-            game.gameState = GameStates.playing;
+            game.changeGameState(GameStates.playing);
         }
 
         protected void loadImgs() {

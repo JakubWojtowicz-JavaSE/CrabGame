@@ -42,6 +42,10 @@ public class VolumeSlider extends UrmButton {
 //        bounds.x = 100 / maxSliderX * volume;
     }
 
+    public void updateVar() {
+        setVolume();
+    }
+
     protected void buttonFun() {}
 
     protected void loadImgs() {

@@ -141,7 +141,7 @@ public class Player extends Entity {
         if (isDead) {
             state = DEAD;
             if (animIndex >= Constants.GetHowMSprInRow(name, state)-1) {
-                game.gameState = GameStates.deathScreen;
+                game.changeGameState(GameStates.deathScreen);
             }
         }
         return isDead;

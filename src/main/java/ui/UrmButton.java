@@ -45,6 +45,8 @@ public abstract class UrmButton {
             index = 0;
     }
 
+    public void updateVar() {}
+
     protected void buttonFun() {}
 
     public void draw(Graphics g) {

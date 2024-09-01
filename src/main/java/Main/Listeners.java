@@ -27,17 +27,14 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         else if (code == KeyEvent.VK_SHIFT || code == KeyEvent.VK_SPACE)
             game.player.setAttacking(true);
         else if (code == KeyEvent.VK_ESCAPE) {
-            if (game.gameState == GameStates.playing)
-                game.gameState = GameStates.pause;
-            else if (game.gameState == GameStates.pause)
-                game.gameState = GameStates.playing;
-            else if (game.gameState == GameStates.options)
-                game.gameState = GameStates.menu;
+            if (game.getGameState() == GameStates.playing)
+                game.changeGameState(GameStates.pause);
+            else if (game.getGameState() == GameStates.pause)
+                game.changeGameState(GameStates.playing);
+            else if (game.getGameState() == GameStates.options)
+                game.changeGameState(GameStates.menu);
         } else if (/*code == KeyEvent.VK_B || */code == KeyEvent.VK_MULTIPLY) {
-            if (!debbugging)
-                debbugging = true;
-            else
-                debbugging = false;
+            debbugging = !debbugging;
         }
     }
 

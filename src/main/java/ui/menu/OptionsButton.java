@@ -13,6 +13,6 @@ public class OptionsButton extends UrmButton {
     }
 
     protected void buttonFun() {
-        game.gameState = GameStates.options;
+        game.changeGameState(GameStates.options);
     }
 }

@@ -120,7 +120,7 @@ public abstract class Entity {
 
     protected void drawColliders(Graphics g) {
         if (game.listeners.debbugging) {
-            g.setColor(new Color(255, 0, 0, 161));
+            g.setColor(new Color(255, 0, 0, 120));
             g.fillRect(posData.getColX(), posData.getColY(), posData.getColWidth(), posData.getColHeigth());
         }
     }

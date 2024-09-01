@@ -16,7 +16,7 @@ public class ResumeButton extends UrmButton {
     }
 
     protected void buttonFun() {
-        game.gameState = GameStates.playing;
+        game.changeGameState(GameStates.playing);
     }
 
     protected void loadImgs() {

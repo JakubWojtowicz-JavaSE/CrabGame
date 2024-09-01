@@ -17,7 +17,7 @@ public class HomeButton extends UrmButton {
 
     protected void buttonFun() {
         game.reset();
-        game.gameState = GameStates.menu;
+        game.changeGameState(GameStates.menu);
     }
 
     protected void loadImgs() {

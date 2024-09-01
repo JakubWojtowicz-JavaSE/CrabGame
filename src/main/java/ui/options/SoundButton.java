@@ -35,6 +35,10 @@ public class SoundButton extends UrmButton {
                 rowIndex = 0;
     }
 
+    public void updateVar() {
+        setRowIndex();
+    }
+
     protected void buttonFun() {
         rowIndex++;
         if (rowIndex > 1) {

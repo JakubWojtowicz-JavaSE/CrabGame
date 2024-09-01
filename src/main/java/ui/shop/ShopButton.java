@@ -16,7 +16,7 @@ public class ShopButton extends UrmButton {
     }
 
     protected void buttonFun() {
-        game.gameState = GameStates.shop;
+        game.changeGameState(GameStates.shop);
     }
 
     protected void loadImgs() {

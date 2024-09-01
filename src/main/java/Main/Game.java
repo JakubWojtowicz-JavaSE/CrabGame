@@ -32,7 +32,7 @@ public class Game extends JPanel implements Runnable {
     public Player player;
 
     // state
-    public GameStates gameState;
+    private GameStates gameState;
 
     public Game() {
         initClasses();
@@ -74,6 +74,11 @@ public class Game extends JPanel implements Runnable {
         LoadSave.SaveData(data);
     }
 
+    public void changeGameState(GameStates newState) {
+        gameState = newState;
+        if (gameState == GameStates.options || gameState == GameStates.pause)
+            ui.updateOptionsButtonsVar();
+    }
     @Override
     public void run() {
         double timeBeetwenUpdate = 1000000000/UPS;
@@ -127,5 +132,9 @@ public class Game extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         ui.draw(g);
         g.dispose();
+    }
+
+    public GameStates getGameState() {
+        return gameState;
     }
 }
