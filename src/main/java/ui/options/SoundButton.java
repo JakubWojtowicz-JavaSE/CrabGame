@@ -25,14 +25,14 @@ public class SoundButton extends UrmButton {
     private void setRowIndex() {
         if (type == Type.music)
             if (game.data.isMusicOn)
-                rowIndex = 1;
-            else
                 rowIndex = 0;
+            else
+                rowIndex = 1;
         else if (type == Type.sfx)
             if (game.data.isSFXOn)
-                rowIndex = 1;
-            else
                 rowIndex = 0;
+            else
+                rowIndex = 1;
     }
 
     public void updateVar() {
@@ -41,17 +41,21 @@ public class SoundButton extends UrmButton {
 
     protected void buttonFun() {
         rowIndex++;
-        if (rowIndex > 1) {
-            rowIndex = 0;
-            if (type == Type.music)
-                game.data.isMusicOn = false;
-            else if (type == Type.sfx)
-                game.data.isSFXOn = false;
-        } else {
-            if (type == Type.music)
+
+        if (type == Type.music) {
+            if (rowIndex > 1) {
+                rowIndex = 0;
                 game.data.isMusicOn = true;
-            else if (type == Type.sfx)
+            } else
+                game.data.isMusicOn = false;
+            game.resetSound(false);
+        } else if (type == Type.sfx) {
+            if (rowIndex > 1) {
+                rowIndex = 0;
                 game.data.isSFXOn = true;
+            } else
+                game.data.isSFXOn = false;
+//            game.resetSound(true);
         }
     }
 

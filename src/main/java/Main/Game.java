@@ -27,6 +27,8 @@ public class Game extends JPanel implements Runnable {
     public EntitySpawner eSpawner;
     public CollisionChecker collisionCh;
     public Listeners listeners;
+    private Sound sound;
+    private int currentMusicNum;
     public UI ui;
     // Entities
     public Player player;
@@ -37,7 +39,9 @@ public class Game extends JPanel implements Runnable {
     public Game() {
         initClasses();
 
-        gameState = GameStates.menu;
+        currentMusicNum = Sound.DEFAULT_MUSIC;
+        playMusic(currentMusicNum);
+        changeGameState(GameStates.menu);
 
         setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         setBackground(Color.BLACK);
@@ -52,6 +56,8 @@ public class Game extends JPanel implements Runnable {
         eSpawner = new EntitySpawner(this);
         collisionCh = new CollisionChecker(this);
         listeners = new Listeners(this);
+        sound = new Sound();
+        sound.setVolume(data.volume);
         ui = new UI(this);
 
         random = new Random();
@@ -79,6 +85,32 @@ public class Game extends JPanel implements Runnable {
         if (gameState == GameStates.options || gameState == GameStates.pause)
             ui.updateOptionsButtonsVar();
     }
+
+    public void resetSound(boolean isSFX) {
+        stopMusic();
+        playMusic(currentMusicNum);
+    }
+
+    public void playMusic(int i) {
+        if (data.isMusicOn) {
+            currentMusicNum = i;
+            sound.setFile(i);
+            sound.play();
+            sound.loop();
+        }
+    }
+
+    public void playSE(int i) {
+        if (data.isSFXOn) {
+            sound.setFile(i);
+            sound.play();
+        }
+    }
+
+    public void stopMusic() {
+        sound.stop();
+    }
+
     @Override
     public void run() {
         double timeBeetwenUpdate = 1000000000/UPS;
@@ -136,5 +168,9 @@ public class Game extends JPanel implements Runnable {
 
     public GameStates getGameState() {
         return gameState;
+    }
+
+    public Sound getSound() {
+        return sound;
     }
 }

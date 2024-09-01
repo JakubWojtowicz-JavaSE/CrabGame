@@ -2,6 +2,7 @@ package Entity;
 
 import Main.Game;
 import Main.GameStates;
+import Main.Sound;
 import Utilz.Constants;
 import Utilz.Data;
 import Utilz.LoadSave;
@@ -131,6 +132,7 @@ public class Player extends Entity {
         state = HIT;
         health -= damage;
         if (health <= 0) {
+//            game.playSE(Sound.GAME_OVER);
             animIndex = 0;
             isDead = true;
             chcekChanges();

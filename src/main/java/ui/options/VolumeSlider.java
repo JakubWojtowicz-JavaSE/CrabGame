@@ -73,6 +73,7 @@ public class VolumeSlider extends UrmButton {
             }
 
             volume = (int) ((bounds.x-minSliderX) / (float) (maxSliderX-minSliderX) * 100);
+            game.getSound().setVolume(volume);
             game.data.volume = volume;
         }
     }
